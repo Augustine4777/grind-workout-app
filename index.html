@@ -874,11 +874,13 @@ let state=Object.assign({
 let curDay=0,curExIdx=0,curSets=[],curEffort=0;
 let timerTotal=60,timerLeft=60,timerRunning=false,timerInterval=null;
 let wxLat=null,wxLon=null;
-let walkActive=false,walkInterval=null,walkStart=0,walkSteps=0,walkDist=0,walkLastPos=null;
+let walkActive=false,walkInterval=null,walkStart=0,walkSteps=0,walkDist=0,walkLastPos=null,walkWatchID=null;
 let sleepQuality=0;
 let detailChart=null;
 const CIRC=458.7;
-const TODAY=()=>new Date().toLocaleDateString('en-ZA',{day:'numeric',month:'short',year:'numeric'});
+const SAST={timeZone:'Africa/Johannesburg'};
+const TODAY=()=>new Date().toLocaleDateString('en-ZA',{day:'numeric',month:'short',year:'numeric',...SAST});
+const NOW_TIME=()=>new Date().toLocaleTimeString('en-ZA',{hour:'2-digit',minute:'2-digit',...SAST});
 
 /* ── NAV ── */
 function go(id){
@@ -1150,75 +1152,124 @@ function finishSession(){
 
 /* ── WALK ── */
 function toggleWalk(){
-  if(!walkActive){startWalk();}else{stopWalk();}
+  if(!walkActive){requestWalkPermissions();}else{stopWalk();}
 }
-function startWalk(){
-  walkActive=true;walkStart=Date.now();walkSteps=0;walkDist=0;walkLastPos=null;
-  document.getElementById('walk-start-btn').textContent='Stop walk';
-  document.getElementById('walk-start-btn').style.background='var(--down-bg)';
-  document.getElementById('walk-start-btn').style.borderColor='var(--down-border)';
-  document.getElementById('walk-start-btn').style.color='var(--down)';
-  document.getElementById('w-status').textContent='Walk in progress';
-  document.getElementById('w-sub').textContent='GPS and step tracking active';
-  document.getElementById('walk-save-btn').style.display='none';
-  // GPS tracking
-  if(navigator.geolocation){
-    navigator.geolocation.watchPosition(pos=>{
-      if(!walkActive)return;
-      if(walkLastPos){
-        const d=haversine(walkLastPos.lat,walkLastPos.lon,pos.coords.latitude,pos.coords.longitude);
-        if(d>0.005&&d<0.1){walkDist+=d;}
+
+async function requestWalkPermissions(){
+  // iOS 13+ requires explicit permission for DeviceMotionEvent
+  if(typeof DeviceMotionEvent!=='undefined'&&typeof DeviceMotionEvent.requestPermission==='function'){
+    try{
+      const perm=await DeviceMotionEvent.requestPermission();
+      if(perm!=='granted'){
+        document.getElementById('w-sub').textContent='Motion permission denied — step counting disabled';
       }
-      walkLastPos={lat:pos.coords.latitude,lon:pos.coords.longitude};
-    },{enableHighAccuracy:true,maximumAge:2000});
+    }catch(e){
+      document.getElementById('w-sub').textContent='Motion permission unavailable';
+    }
   }
-  // Accelerometer step counting
-  if(window.DeviceMotionEvent){
-    window.addEventListener('devicemotion',onMotion);
+  startWalk();
+}
+
+function startWalk(){
+  walkActive=true;
+  walkStart=Date.now();
+  walkSteps=0;walkDist=0;walkLastPos=null;
+
+  const btn=document.getElementById('walk-start-btn');
+  btn.textContent='Stop walk';
+  btn.style.background='var(--down-bg)';
+  btn.style.borderColor='var(--down-border)';
+  btn.style.color='var(--down)';
+  document.getElementById('w-status').textContent='Walk in progress';
+  document.getElementById('w-sub').textContent='Tracking distance and steps...';
+  document.getElementById('walk-save-btn').style.display='none';
+
+  // Reset UI immediately
+  document.getElementById('w-steps').textContent='0';
+  document.getElementById('w-dist').textContent='0.00';
+  document.getElementById('w-time').textContent='00:00';
+  document.getElementById('w-pace').textContent='--';
+
+  // GPS distance tracking
+  if(navigator.geolocation){
+    walkWatchID=navigator.geolocation.watchPosition(
+      pos=>{
+        if(!walkActive)return;
+        if(walkLastPos){
+          const d=haversine(walkLastPos.lat,walkLastPos.lon,pos.coords.latitude,pos.coords.longitude);
+          if(d>0.003&&d<0.2){walkDist+=d;}
+        }
+        walkLastPos={lat:pos.coords.latitude,lon:pos.coords.longitude};
+      },
+      err=>{
+        // GPS failed — still keep timer running, note the issue
+        const msgs={1:'Location permission denied',2:'GPS signal unavailable',3:'GPS timed out'};
+        document.getElementById('w-sub').textContent=(msgs[err.code]||'GPS unavailable')+' — timer still running';
+      },
+      {enableHighAccuracy:true,maximumAge:3000,timeout:15000}
+    );
+  }else{
+    document.getElementById('w-sub').textContent='GPS not available — timer still running';
   }
+
+  // Step counting via accelerometer
+  if(typeof DeviceMotionEvent!=='undefined'){
+    window.addEventListener('devicemotion',onMotion,{passive:true});
+  }
+
+  // Timer — runs independently of GPS/motion
+  if(walkInterval)clearInterval(walkInterval);
   walkInterval=setInterval(updateWalkUI,1000);
 }
-let lastAcc=0,stepThresh=12,stepCooldown=0;
+
+let lastAcc=0,stepThresh=10,stepCooldown=0;
 function onMotion(e){
   if(!walkActive)return;
-  const a=e.accelerationIncludingGravity;
-  if(!a)return;
-  const mag=Math.sqrt(a.x*a.x+a.y*a.y+a.z*a.z);
+  const a=e.accelerationIncludingGravity||e.acceleration;
+  if(!a||a.x==null)return;
+  const mag=Math.sqrt((a.x||0)*(a.x||0)+(a.y||0)*(a.y||0)+(a.z||0)*(a.z||0));
   if(stepCooldown>0){stepCooldown--;return;}
-  if(Math.abs(mag-lastAcc)>stepThresh){walkSteps++;stepCooldown=5;}
+  if(Math.abs(mag-lastAcc)>stepThresh){walkSteps++;stepCooldown=6;}
   lastAcc=mag;
 }
+
 function haversine(lat1,lon1,lat2,lon2){
-  const R=6371;const dLat=(lat2-lat1)*Math.PI/180;const dLon=(lon2-lon1)*Math.PI/180;
+  const R=6371;
+  const dLat=(lat2-lat1)*Math.PI/180;
+  const dLon=(lon2-lon1)*Math.PI/180;
   const a=Math.sin(dLat/2)*Math.sin(dLat/2)+Math.cos(lat1*Math.PI/180)*Math.cos(lat2*Math.PI/180)*Math.sin(dLon/2)*Math.sin(dLon/2);
   return R*2*Math.atan2(Math.sqrt(a),Math.sqrt(1-a));
 }
+
 function updateWalkUI(){
-  if(!walkActive)return;
+  // Always update timer regardless of GPS/motion status
   const elapsed=Math.floor((Date.now()-walkStart)/1000);
   const mm=String(Math.floor(elapsed/60)).padStart(2,'0');
   const ss=String(elapsed%60).padStart(2,'0');
+  document.getElementById('w-time').textContent=mm+':'+ss;
   document.getElementById('w-steps').textContent=walkSteps;
   document.getElementById('w-dist').textContent=walkDist.toFixed(2);
-  document.getElementById('w-time').textContent=mm+':'+ss;
-  const pace=walkDist>0.1?((elapsed/60)/walkDist).toFixed(1)+'\'':'--';
+  const pace=walkDist>0.05&&elapsed>0?((elapsed/60)/walkDist).toFixed(1)+"'":"--";
   document.getElementById('w-pace').textContent=pace;
 }
+
 function stopWalk(){
-  walkActive=false;clearInterval(walkInterval);
+  walkActive=false;
+  clearInterval(walkInterval);walkInterval=null;
   window.removeEventListener('devicemotion',onMotion);
-  document.getElementById('walk-start-btn').textContent='Start walk';
-  document.getElementById('walk-start-btn').style.background='';
-  document.getElementById('walk-start-btn').style.borderColor='';
-  document.getElementById('walk-start-btn').style.color='';
+  if(walkWatchID!==null){navigator.geolocation&&navigator.geolocation.clearWatch(walkWatchID);walkWatchID=null;}
+  const btn=document.getElementById('walk-start-btn');
+  btn.textContent='Start walk';btn.style.background='';btn.style.borderColor='';btn.style.color='';
   document.getElementById('w-status').textContent='Walk complete';
   document.getElementById('w-sub').textContent='Save your walk to keep the record';
   document.getElementById('walk-save-btn').style.display='block';
 }
+
 function saveWalk(){
   const elapsed=Math.floor((Date.now()-walkStart)/1000);
+  if(elapsed<5){alert('Walk too short to save.');return;}
   state.walkHistory=state.walkHistory||[];
-  state.walkHistory.push({date:TODAY(),steps:walkSteps,dist:parseFloat(walkDist.toFixed(2)),duration:elapsed});
+  state.walkHistory.push({date:TODAY(),time:NOW_TIME(),steps:walkSteps,dist:parseFloat(walkDist.toFixed(2)),duration:elapsed});
   saveState();renderWalkHistory();
   document.getElementById('walk-save-btn').style.display='none';
   document.getElementById('w-status').textContent='Walk saved';
@@ -1229,16 +1280,17 @@ function renderWalkHistory(){
   const hist=state.walkHistory||[];
   if(!hist.length){el.innerHTML='<div style="font-size:12px;color:var(--muted);padding:6px 0;">No walks logged yet.</div>';return;}
   el.innerHTML=hist.slice(-10).reverse().map(w=>{
-    const mm=String(Math.floor(w.duration/60)).padStart(2,'0');
-    const ss=String(w.duration%60).padStart(2,'0');
+    const mm=String(Math.floor((w.duration||0)/60)).padStart(2,'0');
+    const ss=String((w.duration||0)%60).padStart(2,'0');
     return`<div class="walk-history-entry">
-      <div><div class="walk-entry-stats">${w.dist} km · ${w.steps} steps</div><div class="walk-entry-date">${w.date} · ${mm}:${ss}</div></div>
+      <div><div class="walk-entry-stats">${w.dist} km · ${w.steps} steps · ${mm}:${ss}</div>
+      <div class="walk-entry-date">${w.date}${w.time?' · '+w.time+' SAST':''}</div></div>
     </div>`;
   }).join('');
 }
 
 /* ── HYDRATION ── */
-function getTodayKey(){return new Date().toLocaleDateString('en-ZA',{day:'2-digit',month:'2-digit',year:'numeric'});}
+function getTodayKey(){return new Date().toLocaleDateString('en-ZA',{day:'2-digit',month:'2-digit',year:'numeric',...SAST});}
 function getTodayHydro(){return(state.hydroLogs[getTodayKey()]||[]).reduce((a,e)=>a+e.ml,0);}
 function getHydroTarget(){
   const bw=parseFloat(state.bodyWeight)||70;
@@ -1255,7 +1307,7 @@ function getTodayProtein(){return(state.foodLogs[getTodayKey()]||[]).reduce((a,e
 function addWater(ml){
   const key=getTodayKey();
   if(!state.hydroLogs[key])state.hydroLogs[key]=[];
-  const time=new Date().toLocaleTimeString('en-ZA',{hour:'2-digit',minute:'2-digit'});
+  const time=NOW_TIME();
   state.hydroLogs[key].push({ml,time});saveState();renderHydro();
 }
 function addCustomWater(){
@@ -1305,7 +1357,7 @@ function addMeal(){
   if(!name)return;
   const key=getTodayKey();
   if(!state.foodLogs[key])state.foodLogs[key]=[];
-  const time=new Date().toLocaleTimeString('en-ZA',{hour:'2-digit',minute:'2-digit'});
+  const time=NOW_TIME();
   state.foodLogs[key].push({name,protein,cals,time});saveState();
   document.getElementById('f-meal-name').value='';document.getElementById('f-protein').value='';document.getElementById('f-cals').value='';
   renderFood();
