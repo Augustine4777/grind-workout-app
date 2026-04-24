@@ -494,6 +494,7 @@ nav{position:sticky;top:0;z-index:100;background:rgba(10,10,10,0.96);backdrop-fi
     <div class="status-bar" id="d-status"></div>
   </div>
   <div id="d-notice"></div>
+  <div id="d-howto"></div>
   <div class="card-block">
     <div class="sec-label" style="margin-top:0;">Log your sets</div>
     <div id="set-rows"></div>
@@ -738,7 +739,84 @@ nav{position:sticky;top:0;z-index:100;background:rgba(10,10,10,0.96);backdrop-fi
   <div id="hist-content"></div>
 </div>
 
+.howto-wrap{background:var(--surface2);border:1px solid var(--border2);border-radius:8px;margin-bottom:10px;overflow:hidden;}
+.howto-header{display:flex;align-items:center;justify-content:space-between;padding:11px 14px;cursor:pointer;}
+.howto-label{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);}
+.howto-arrow{color:var(--muted);font-size:16px;transition:transform 0.2s;}
+.howto-arrow.open{transform:rotate(180deg);}
+.howto-body{padding:0 14px 12px;display:none;}
+.howto-body.open{display:block;}
+.howto-step{font-size:13px;color:var(--text);line-height:1.6;padding:5px 0;border-bottom:1px solid var(--border);display:flex;gap:10px;}
+.howto-step:last-child{border-bottom:none;}
+.howto-step-num{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:14px;color:var(--accent);flex-shrink:0;min-width:18px;}
+.howto-tip{background:var(--accent-dark);border:1px solid var(--up-border);border-radius:6px;padding:8px 11px;margin-top:8px;font-size:12px;color:var(--accent);line-height:1.5;}
+.howto-tip strong{font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:700;display:block;margin-bottom:2px;}
+</style>
 <script>
+/* ── EXERCISE DESCRIPTIONS ── */
+const HOW_TO={
+  'Skip rope warm-up':{steps:['Hold one handle in each hand with the rope behind your heels.','Swing the rope over your head and jump with both feet as it reaches the floor.','Keep a gentle bounce — stay on the balls of your feet, not flat-footed.','Keep your elbows close to your sides and wrists doing most of the turning, not your whole arms.','Breathe steadily. This is a warm-up — keep the pace easy and comfortable.'],tip:'If you trip the rope, just restart. After a few sessions the rhythm clicks naturally.'},
+  'Skip rope intervals':{steps:['Jump at a moderate pace for 30 seconds — slightly faster than your warm-up.','Rest for 20 seconds — step side to side or just breathe.','Repeat for the number of rounds in your target.','During the work phase, push the pace but keep your form — elbows in, wrists turning the rope.'],tip:'The rest is important. Use it fully — your heart rate drops and you can push harder on the next round.'},
+  'Skip rope steady':{steps:['Jump at a comfortable, sustainable pace you can hold for 10 minutes.','Focus on breathing rhythmically — in through the nose, out through the mouth.','If you get tired, slow down rather than stopping completely.'],tip:'10 minutes of steady skipping burns significant calories. Consistency matters more than speed here.'},
+  'Skip rope finisher':{steps:['This is your last push of the session — go harder than your warm-up pace.','Jump for 45 seconds at a challenging effort level, rest 15 seconds, repeat 3 times.','Give each round everything you have — this is meant to be the hardest part of the session.'],tip:'If your legs feel heavy at this point, that is normal. Push through — it ends quickly.'},
+  'Standard push-ups':{steps:['Get on all fours, place hands slightly wider than shoulder width.','Step your feet back so your body forms a straight line from head to heels.','Lower your chest toward the floor slowly — count 2 seconds going down.','Push back up to the start. That is one rep.','Keep your core tight the whole time — do not let your hips sag or stick up.'],tip:'If full push-ups are too hard right now, drop to your knees. Same movement, less load. Build up over time.'},
+  'Seated dumbbell shoulder press':{steps:['Sit upright on a chair with your back flat against the backrest.','Hold a dumbbell in each hand at shoulder height, palms facing forward.','Press both dumbbells straight up until your arms are nearly straight — do not lock elbows.','Lower them back slowly to shoulder height. That is one rep.','Keep your back against the chair throughout — do not arch away from it.'],tip:'Sitting down protects your shoulder by removing the temptation to lean back and use momentum. Keep the movement controlled.'},
+  'Lateral raise (controlled)':{steps:['Stand with a dumbbell in each hand hanging at your sides, palms facing your thighs.','Raise both arms out to the sides slowly until they are level with your shoulders.','Hold for a half second at the top, then lower slowly — count 3 seconds coming down.','Do not shrug your shoulders up as you raise — keep them pulled down and back.'],tip:'Your shoulder is sensitive — use a light weight and strict form. The slow lowering phase is where the muscle actually works.'},
+  'Dumbbell chest fly (floor)':{steps:['Lie flat on your back on the floor with a dumbbell in each hand.','Hold the dumbbells above your chest with arms slightly bent, palms facing each other.','Open your arms wide and lower them out to the sides until your upper arms touch the floor.','Bring them back together above your chest in a hugging motion. That is one rep.','Keep a slight bend in your elbows throughout — never fully straight.'],tip:'The floor stops you from going too deep, which is actually safer than doing this on a bench. Perfect for your level.'},
+  'Tricep overhead extension':{steps:['Stand or sit and hold one dumbbell with both hands above your head.','Cup the top weight plate with both palms, thumbs wrapped around the handle.','Lower the dumbbell behind your head by bending your elbows — upper arms stay still and pointing up.','Press back up to the start. That is one rep.','Keep your core tight so your lower back does not arch.'],tip:'Only your forearms should move. If your upper arms are flopping around, the weight is too heavy or you are losing form.'},
+  'Front raise (controlled)':{steps:['Stand with a dumbbell in each hand in front of your thighs, palms facing back.','Raise one or both arms straight in front of you to shoulder height.','Hold for a moment at the top, then lower slowly.','Keep a tiny bend in the elbow — do not lock it straight.'],tip:'Go lighter than you think you need to here. This exercise hits a part of the shoulder that tires quickly and is connected to your shoulder pain area.'},
+  'Incline push-ups':{steps:['Find a sturdy surface — a chair seat, desk edge, or countertop.','Place your hands on the surface wider than shoulder width and step your feet back.','Your body should form a straight line — this is a push-up but on an angle.','Lower your chest to the surface slowly, then push back up.'],tip:'The higher the surface, the easier it is. A wall is the easiest, a chair is medium, the floor is hardest. Pick what challenges you without breaking your form.'},
+  'Plank hold':{steps:['Lie face down on the floor.','Push up onto your forearms — elbows directly under your shoulders, arms parallel.','Lift your hips so your body forms a straight line from head to heels.','Hold this position, breathing steadily. Do not hold your breath.','Keep your core squeezed tight — imagine someone is about to poke your stomach.'],tip:'If 20 seconds feels long, start by counting slowly. Your core will adapt fast — this is one of the best exercises for protecting your back.'},
+  'Plank progressions':{steps:['Start in a forearm plank — elbows under shoulders, body in a straight line.','Hold for the target time, keeping your hips level. Do not let them sag or rise.','As you get stronger, try a high plank on your hands instead of forearms.','You can also try lifting one foot slightly off the ground while holding — more core challenge.'],tip:'Each week try to hold 5 seconds longer before moving to the next set. Progress here directly protects your back during all other exercises.'},
+  'Chest-supported row (floor)':{steps:['Lie face down on the floor with a dumbbell in each hand.','Your arms start extended at your sides on the floor.','Pull the dumbbells up toward your hips by driving your elbows back — squeeze your shoulder blades together at the top.','Lower back down slowly. That is one rep.','Keep your head neutral — look at the floor, not forward.'],tip:'This is a safer alternative to bent-over rows because the floor supports your back completely. You will feel it strongly between your shoulder blades — that is exactly right.'},
+  'Rear delt fly (seated)':{steps:['Sit at the edge of a chair and hinge forward slightly at the hips — chest toward your thighs.','Hold a dumbbell in each hand hanging below your chest, palms facing each other.','Raise both arms out to the sides in a wide arc until they are level with your shoulders.','Squeeze your shoulder blades together at the top, then lower slowly.'],tip:'This exercise directly counteracts the rounded shoulders caused by desk work. Take your time — the squeeze at the top is where the benefit happens.'},
+  'Bicep curl':{steps:['Stand with a dumbbell in each hand, palms facing forward, arms hanging at your sides.','Keep your upper arms still and curl both dumbbells up toward your shoulders.','Squeeze your biceps at the top, then lower slowly — count 3 seconds coming down.','Do not swing your body to help — if you are swinging, the weight is too heavy.'],tip:'The slow lowering phase builds as much muscle as the curl itself. Do not drop the weight — control it the whole way down.'},
+  'Single-arm row (knee support)':{steps:['Place one knee and the same-side hand on a chair for support.','Hold a dumbbell in your free hand, arm hanging straight down.','Pull the dumbbell up toward your hip by driving your elbow back — like starting a lawnmower.','Lower slowly back to the start. Complete all reps then switch sides.','Keep your back flat and parallel to the floor throughout.'],tip:'The knee and hand on the chair take all the load off your lower back — this is intentional. Do not skip the support.'},
+  'Hammer curl':{steps:['Stand with a dumbbell in each hand, palms facing your thighs — thumbs pointing forward.','Curl both dumbbells up keeping your palms facing inward the whole time.','Squeeze at the top, then lower slowly.','Upper arms stay still — only your forearms move.'],tip:'The hammer grip targets a different part of your bicep and your forearm. It builds the thickness on the outside of your upper arm.'},
+  'Dumbbell shrug':{steps:['Stand with a dumbbell in each hand hanging at your sides.','Shrug your shoulders straight up toward your ears as high as they will go.','Hold for a second at the top, squeezing your traps.','Lower slowly back down. That is one rep.','Do not roll your shoulders — straight up and straight down only.'],tip:'This works the trapezius muscles at the top of your back and neck — an area that gets very tight from desk work. Keep the movement strict.'},
+  'Dead bug':{steps:['Lie flat on your back with your arms pointing straight up toward the ceiling.','Bring your knees up so they are bent at 90 degrees — shins parallel to the floor.','Slowly lower your right arm back behind your head while straightening your left leg toward the floor.','Stop just before either touches the floor, then bring them back. Switch sides. That is one rep each side.','Keep your lower back pressed into the floor the entire time — do not let it arch up.'],tip:'This is one of the safest core exercises for back pain. The whole point is to keep your spine neutral while your limbs move. Start slowly — the coordination takes a few sessions to click.'},
+  'Bird dog':{steps:['Start on all fours — hands under shoulders, knees under hips.','Keep your back flat like a table — not arched up or sagging down.','Slowly extend your right arm forward and your left leg back at the same time.','Hold for 2 seconds, then bring them back. Switch sides. That is one rep each side.','Do not let your hips rotate — keep them level and square to the floor.'],tip:'If you wobble a lot at first, just extend one limb at a time before combining them. Your balance will improve quickly.'},
+  'Chest opener stretch':{steps:['Stand or sit upright.','Clasp your hands behind your back with fingers interlocked.','Straighten your arms and gently lift them behind you while opening your chest forward and up.','Hold the stretch for 30 seconds, breathing deeply.','You should feel a stretch across your chest and the front of your shoulders.'],tip:'Desk workers have chronically tight chests that pull the shoulders forward. This stretch directly counteracts that. Do it every session.'},
+  'Shoulder circles':{steps:['Stand relaxed with arms at your sides.','Slowly roll both shoulders forward in large circles 10 times.','Then reverse direction — roll them backward 10 times.','For cross-body: bring one arm across your chest and use the other arm to pull it gently closer.','Hold the cross-body stretch for 20 seconds each side.'],tip:'Do these slowly and gently. If you feel clicking in the shoulder that is often just gas in the joint — normal. Sharp pain is different — if it hurts, stop.'},
+  'Thoracic rotations':{steps:['Sit on the edge of a chair with hands behind your head, elbows out wide.','Keep your hips facing forward and rotate your upper body to the right as far as comfortable.','Hold for 2 seconds, then rotate to the left. That is one rep each side.','Only your upper back and chest should rotate — your hips stay still.'],tip:'Your thoracic spine stiffens badly from sitting. This directly loosens it and reduces the shoulder and back pain caused by desk posture.'},
+  'Hip flexor stretch':{steps:['Kneel on your right knee on the floor with your left foot forward, left knee at 90 degrees.','Shift your hips forward gently until you feel a stretch at the front of your right hip and thigh.','Hold for 30 seconds, then switch legs.','Keep your upper body tall — do not lean forward.'],tip:'Sitting all day shortens the hip flexors which pulls on your lower back and contributes to back pain. This stretch is more important for your back than it looks.'},
+  'Slow push-ups (3s down)':{steps:['Get into your push-up position — either full or on your knees.','Lower yourself toward the floor counting slowly to 3.','Push back up at a normal pace.','The slow lowering phase is the work — resist the urge to drop fast.'],tip:'Slow push-ups are significantly harder than regular ones. This is called eccentric training and it builds strength fast.'},
+  'Arnold press (seated)':{steps:['Sit upright on a chair. Hold a dumbbell in each hand at shoulder height, palms facing you — like the end of a bicep curl.','As you press the dumbbells up, rotate your palms to face forward.','At the top your palms face away from you and arms are nearly straight.','Lower back down while rotating palms back to face you. That is one rep.'],tip:'Named after Arnold Schwarzenegger. The rotation hits more of the shoulder than a regular press. Keep the movement smooth — do not rush the rotation.'},
+  'Dumbbell chest press (floor)':{steps:['Lie flat on your back with a dumbbell in each hand.','Hold them at chest height with palms facing your feet, elbows at about 45 degrees to your body.','Press both dumbbells up until arms are nearly straight, then lower back down slowly.','The floor stops your elbows from going too deep — this protects your shoulder.'],tip:'This is a safe substitute for a bench press. The limited range of motion from the floor is actually beneficial for shoulder health at your level.'},
+  'Tricep kickback':{steps:['Hold a dumbbell in your right hand and hinge forward at the hips about 45 degrees.','Bring your right upper arm up parallel to the floor, elbow bent at 90 degrees.','Straighten your arm back and up until it is fully extended behind you.','Lower back to 90 degrees slowly. Complete all reps then switch.'],tip:'Keep your upper arm completely still — only your forearm moves. If your whole arm is swinging you are using momentum instead of muscle.'},
+  'Push-up to shoulder tap':{steps:['Get into a full push-up position with hands under shoulders.','Do one push-up.','At the top, lift your right hand and tap your left shoulder, then place it back.','Do another push-up, then tap your right shoulder with your left hand. That is one rep.','Keep your hips as still as possible when you tap — do not rotate your whole body.'],tip:'The shoulder tap forces your core to stabilise your body while balanced on three points. Go slowly at first.'},
+  'Pallof press (rope)':{steps:['Anchor your skipping rope to something fixed at chest height — a door handle or stair rail.','Hold both handles together in both hands and step sideways away from the anchor until the rope is taut.','Stand with your feet shoulder width apart, side-on to the anchor point.','Press your hands straight out in front of you, hold for 2 seconds, then bring back to your chest. That is one rep.','The rope will try to pull you toward the anchor — resist it with your core.'],tip:'This is an anti-rotation exercise — you are training your core to resist twisting, which directly protects your spine and trains deep stabiliser muscles that regular crunches miss.'},
+  'Chest-supported row (3s tempo)':{steps:['Lie face down on the floor with a dumbbell in each hand.','Pull the dumbbells toward your hips, driving elbows back and squeezing shoulder blades together.','At the top, hold for 1 second.','Lower back to the floor taking 3 full seconds — slow and controlled.','Keep your neck neutral and forehead close to the floor.'],tip:'The 3-second lowering is the strength-building part. Fight the weight on the way down rather than letting gravity do the work.'},
+  'Concentration curl':{steps:['Sit on a chair and lean forward with your right elbow resting on the inside of your right thigh.','Hold a dumbbell in your right hand, arm hanging straight.','Curl the dumbbell up toward your shoulder — your thigh acts as a brace so your arm cannot swing.','Lower slowly. Complete all reps then switch arms.'],tip:'This isolation means all the work goes directly into the bicep with zero cheating. Keep your upper arm pressed against your thigh throughout.'},
+  'Renegade row (knees)':{steps:['Get into a push-up position on your knees, a dumbbell in each hand on the floor.','Keep your body in a straight line from knees to head.','Row one dumbbell up toward your hip while balancing on the other arm.','Lower it back and switch sides. That is one rep each side.','Keep your hips level — do not rotate or twist.'],tip:'On your knees reduces the core demand compared to full renegade rows — correct for your level. The goal is still to keep your hips perfectly still when you row.'},
+  'Zottman curl':{steps:['Stand with a dumbbell in each hand, palms facing forward.','Curl both dumbbells up like a regular bicep curl.','At the top, rotate both wrists so palms face down.','Lower the dumbbells slowly with palms facing down. That is one rep.','At the bottom, rotate palms forward again before the next curl.'],tip:'This works both the bicep on the way up and the forearm on the way down in a single movement. The slow lowering with palms down is what makes it unique.'},
+  'Rear delt fly':{steps:['Sit at the edge of a chair and hinge forward at the hips.','Hold a dumbbell in each hand hanging below your chest.','Raise both arms out to the sides until level with your shoulders.','Squeeze your shoulder blades together at the top, then lower slowly.'],tip:'One of the most important exercises for desk workers. Directly fixes rounded shoulder posture over time.'},
+  'Push-up + row superset':{steps:['Do 10 push-ups first — full or knees, your best version.','Immediately after the last push-up, get your dumbbells and do 10 chest-supported rows without resting.','Rest for 60 seconds, then repeat.','A superset means two exercises back to back with no break between them.'],tip:'Pairing a push and a pull means one set of muscles rests while the other works. More efficient and keeps your heart rate up.'},
+  'Shoulder press + curl superset':{steps:['Do 12 seated shoulder presses first.','Immediately after, without resting, do 12 bicep curls.','Rest 60 seconds then repeat.'],tip:'Another push-pull superset. Good technique beats heavy weight every time here.'},
+  'Full upper body stretch':{steps:['Chest opener: clasp hands behind back and open chest up for 30 seconds.','Shoulder cross-body: pull each arm across chest and hold 20 seconds each side.','Tricep stretch: raise one arm, bend the elbow behind your head and gently push with the other hand. Hold 20 seconds each side.','Upper back: interlace fingers in front and round your back forward. Hold 30 seconds.','Neck: gently tilt ear toward shoulder and hold 20 seconds each side.'],tip:'Stretching after exercise when muscles are warm produces the best results. Never force a stretch — go to the point of mild tension only.'},
+  'Complete rest':{steps:['No exercise today.','Use the time to eat well — prioritise protein in your meals.','Sleep as much as your schedule allows — muscle is built during rest, not during training.','Light walking is fine if you feel like moving.'],tip:'Rest days are not lazy days. Your muscles are actively repairing and growing during this time. Skipping rest days slows your progress.'},
+};
+
+function renderHowTo(exName){
+  const how=HOW_TO[exName];
+  if(!how)return'';
+  const stepsHtml=how.steps.map((s,i)=>`<div class="howto-step"><span class="howto-step-num">${i+1}</span><span>${s}</span></div>`).join('');
+  const tipHtml=how.tip?`<div class="howto-tip"><strong>Tip</strong>${how.tip}</div>`:'';
+  return`<div class="howto-wrap">
+    <div class="howto-header" onclick="toggleHowTo(this)">
+      <span class="howto-label">How to do this</span>
+      <span class="howto-arrow">▾</span>
+    </div>
+    <div class="howto-body">${stepsHtml}${tipHtml}</div>
+  </div>`;
+}
+function toggleHowTo(header){
+  const body=header.nextElementSibling;
+  const arrow=header.querySelector('.howto-arrow');
+  body.classList.toggle('open');
+  arrow.classList.toggle('open');
+}
+
 /* ── PLAN ── */
 const PREHAB=[
   {name:'Dead bug',sets:'2×8/side',note:'Core — back protection'},
@@ -1094,6 +1172,8 @@ function openDetail(exIdx){
     const setsHtml=(e.sets||[]).map((s,si)=>{const diff=s.reps-tgt.reps;return`<span class="${diff>0?'beat':''}" style="${diff<0?'color:var(--down)':''}">Set ${si+1}: ${s.reps}r${diff!==0?(diff>0?' +':' ')+diff:''}</span>`;}).join(' · ');
     return`<div class="hist-entry"><div class="hist-date">${e.date} · Wk ${e.weekNum}${e.effort?' · Effort '+e.effort+'/5':''}</div><div class="hist-sets">${setsHtml}</div></div>`;
   }).join('');}
+  // how-to
+  document.getElementById('d-howto').innerHTML=renderHowTo(ex.name);
   // chart
   const chartCard=document.getElementById('d-chart-card');
   if(logs.length>1&&!ex.timed){
@@ -1212,9 +1292,18 @@ function startWalk(){
     document.getElementById('w-sub').textContent='GPS not available — timer still running';
   }
 
-  // Step counting via accelerometer
+  // Step counting via accelerometer — Android Chrome fires immediately on HTTPS
+  let motionReceived=false;
   if(typeof DeviceMotionEvent!=='undefined'){
     window.addEventListener('devicemotion',onMotion,{passive:true});
+    // Verify motion is actually firing after 3 seconds
+    setTimeout(()=>{
+      if(!motionReceived&&walkActive){
+        document.getElementById('w-sub').textContent='Steps: sensor not available on this browser — distance still tracking via GPS';
+      }
+    },3000);
+  }else{
+    document.getElementById('w-sub').textContent='Step sensor not supported — distance tracked via GPS only';
   }
 
   // Timer — runs independently of GPS/motion
@@ -1222,9 +1311,10 @@ function startWalk(){
   walkInterval=setInterval(updateWalkUI,1000);
 }
 
-let lastAcc=0,stepThresh=10,stepCooldown=0;
+let lastAcc=0,stepThresh=10,stepCooldown=0,motionReceived=false;
 function onMotion(e){
   if(!walkActive)return;
+  motionReceived=true;
   const a=e.accelerationIncludingGravity||e.acceleration;
   if(!a||a.x==null)return;
   const mag=Math.sqrt((a.x||0)*(a.x||0)+(a.y||0)*(a.y||0)+(a.z||0)*(a.z||0));
