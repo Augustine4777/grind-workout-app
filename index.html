@@ -381,6 +381,42 @@ nav{position:sticky;top:0;z-index:100;background:rgba(10,10,10,0.96);backdrop-fi
 .howto-step-num{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:14px;color:var(--accent);flex-shrink:0;min-width:18px;}
 .howto-tip{background:var(--accent-dark);border:1px solid var(--up-border);border-radius:6px;padding:8px 11px;margin-top:8px;font-size:12px;color:var(--accent);line-height:1.5;}
 .howto-tip strong{font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:700;display:block;margin-bottom:2px;}
+.howto-links{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px;}
+.howto-vid-btn,.howto-search-btn{display:flex;align-items:center;justify-content:center;gap:6px;padding:9px 10px;border-radius:6px;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:12px;letter-spacing:1px;text-transform:uppercase;text-decoration:none;transition:all 0.12s;text-align:center;}
+.howto-vid-btn{background:#1a0a0a;border:1px solid #cc0000;color:#ff4444;}
+.howto-vid-btn:hover{background:#2a0a0a;border-color:#ff0000;}
+.howto-search-btn{background:var(--surface3);border:1px solid var(--border2);color:var(--muted);}
+.howto-search-btn:hover{border-color:var(--border3);color:var(--text);}
+
+/* SLEEP ROUTINE */
+.sleep-routine-banner{background:var(--sleep-bg);border:1px solid #2a1a4a;border-radius:10px;padding:14px;margin-bottom:12px;cursor:pointer;transition:all 0.12s;}
+.sleep-routine-banner:hover{border-color:#4a2a7a;}
+.sleep-routine-top{display:flex;align-items:center;justify-content:space-between;}
+.sleep-routine-title{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:16px;letter-spacing:2px;text-transform:uppercase;color:var(--sleep);}
+.sleep-routine-sub{font-size:11px;color:#a78bfa88;margin-top:2px;}
+.sleep-routine-body{margin-top:12px;display:none;}
+.sleep-routine-body.open{display:block;}
+.sleep-ex-item{background:rgba(0,0,0,0.3);border-radius:7px;padding:11px 13px;margin-bottom:6px;cursor:pointer;transition:all 0.12s;border:1px solid transparent;}
+.sleep-ex-item:hover{border-color:#4a2a7a;}
+.sleep-ex-item.done{border-color:#2a1a4a;opacity:0.6;}
+.sleep-ex-item.done .sleep-ex-name{text-decoration:line-through;color:#a78bfa88;}
+.sleep-ex-header{display:flex;align-items:center;justify-content:space-between;}
+.sleep-ex-name{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:15px;color:var(--text);}
+.sleep-ex-dur{font-size:11px;color:var(--sleep);background:var(--sleep-bg);padding:2px 8px;border-radius:3px;font-family:'Barlow Condensed',sans-serif;font-weight:700;}
+.sleep-ex-desc{font-size:12px;color:var(--muted);margin-top:5px;line-height:1.5;}
+.sleep-ex-links{display:flex;gap:6px;margin-top:8px;}
+.sleep-ex-links a{font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:5px 10px;border-radius:4px;text-decoration:none;transition:all 0.12s;}
+.sleep-ex-links .sv{background:#1a0a0a;border:1px solid #cc0000;color:#ff4444;}
+.sleep-ex-links .ss{background:var(--surface3);border:1px solid var(--border2);color:var(--muted);}
+.sleep-routine-progress{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;}
+.sleep-routine-pct{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:13px;color:var(--sleep);}
+.sleep-routine-track{flex:1;background:var(--surface2);border-radius:2px;height:3px;margin:0 10px;overflow:hidden;}
+.sleep-routine-fill{height:100%;background:var(--sleep);border-radius:2px;transition:width 0.4s;}
+.sleep-routine-done-btn{width:100%;margin-top:10px;}
+.dash-sleep-nudge{background:var(--sleep-bg);border:1px solid #2a1a4a;border-radius:10px;padding:12px 14px;margin-bottom:10px;cursor:pointer;transition:all 0.12s;display:none;}
+.dash-sleep-nudge:hover{border-color:#4a2a7a;}
+.dash-sleep-nudge-title{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:14px;letter-spacing:1px;text-transform:uppercase;color:var(--sleep);margin-bottom:3px;}
+.dash-sleep-nudge-sub{font-size:12px;color:#a78bfa88;}
 </style>
 </head>
 <body>
@@ -450,6 +486,10 @@ nav{position:sticky;top:0;z-index:100;background:rgba(10,10,10,0.96);backdrop-fi
   </div>
 
   <div id="dash-upgrades-block"></div>
+  <div class="dash-sleep-nudge" id="dash-sleep-nudge" onclick="go('sleep-screen')">
+    <div class="dash-sleep-nudge-title">🌙 Time to wind down</div>
+    <div class="dash-sleep-nudge-sub">Your 10-minute sleep routine is ready — tap to start</div>
+  </div>
 
   <div class="consist-bar">
     <div class="consist-top">
@@ -643,6 +683,25 @@ nav{position:sticky;top:0;z-index:100;background:rgba(10,10,10,0.96);backdrop-fi
     <div class="sleep-hours" id="sl-last">--</div>
     <div class="sleep-lbl" id="sl-last-lbl">Last night — not logged yet</div>
     <div style="font-size:12px;color:var(--sleep);margin-top:6px;" id="sl-avg">Week average: --</div>
+  </div>
+
+  <!-- SLEEP ROUTINE -->
+  <div class="sleep-routine-banner">
+    <div class="sleep-routine-top" onclick="toggleSleepRoutine(this)">
+      <div>
+        <div class="sleep-routine-title">🌙 10-min wind-down routine</div>
+        <div class="sleep-routine-sub">Stretches for better sleep and muscle recovery · tap to expand</div>
+      </div>
+      <span style="color:var(--sleep);font-size:18px;" id="sr-arrow">+</span>
+    </div>
+    <div class="sleep-routine-body" id="sr-body">
+      <div class="sleep-routine-progress">
+        <span class="sleep-routine-pct" id="sr-pct">0 of 6 done</span>
+        <div class="sleep-routine-track"><div class="sleep-routine-fill" id="sr-fill" style="width:0%"></div></div>
+      </div>
+      <div id="sr-exercises"></div>
+      <button class="btn-primary sleep-routine-done-btn" onclick="completeSleepRoutine()">Mark routine complete</button>
+    </div>
   </div>
 
   <div class="card-block">
@@ -996,6 +1055,7 @@ function renderDashboard(){
   document.getElementById('d-s-streak').textContent=state.streak;
   document.getElementById('d-s-week').textContent=state.weekNum;
   document.getElementById('d-upg-val').textContent=state.totalUpgrades||0;
+  updateSleepNudge();
   // hydro
   const hydroToday=getTodayHydro();
   const hydroTgt=getHydroTarget();
@@ -1490,6 +1550,7 @@ function renderFood(){
 /* ── SLEEP ── */
 function renderSleep(){
   renderSleepQualityBtns();
+  renderSleepRoutine();
   const logs=state.sleepLogs||[];
   const lastSleep=logs.length?logs[logs.length-1]:null;
   document.getElementById('sl-last').textContent=lastSleep?lastSleep.hours:'--';
@@ -1499,20 +1560,101 @@ function renderSleep(){
     const avg=(recent.reduce((a,l)=>a+l.hours,0)/recent.length).toFixed(1);
     document.getElementById('sl-avg').textContent=`Week average: ${avg} hrs`;
   }else{document.getElementById('sl-avg').textContent='Log more nights to see your average';}
-  // correlation
   const corrEl=document.getElementById('sleep-corr-content');
   const corrs=logs.filter(l=>l.effort).slice(-7);
   if(corrs.length<2){corrEl.innerHTML='<div style="font-size:12px;color:var(--muted);">Log at least 2 nights with session effort ratings to see correlation.</div>';}
   else{corrEl.innerHTML=corrs.reverse().map(l=>`<div class="corr-row"><span class="corr-sleep">${l.hours}h sleep</span><span>→</span><span class="corr-effort">Effort ${l.effort}/5</span><span style="font-size:11px;color:var(--muted);">${l.date}</span></div>`).join('');}
-  // history
   const logEl=document.getElementById('sleep-log');
   if(!logs.length){logEl.innerHTML='<div style="font-size:12px;color:var(--muted);padding:6px 0;">No sleep logged yet.</div>';return;}
   logEl.innerHTML=logs.slice(-14).reverse().map((e,i)=>`
     <div class="sleep-log-entry">
-      <div><div style="font-family:\'Barlow Condensed\',sans-serif;font-weight:700;font-size:15px;color:var(--sleep);">${e.hours} hrs</div>
-        <div class="sleep-entry-date">${e.date} · Quality ${e.quality}/5</div></div>
+      <div><div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:15px;color:var(--sleep);">${e.hours} hrs${e.routineDone?' 🌙':''}</div>
+        <div class="sleep-entry-date">${e.date} · Quality ${e.quality}/5${e.routineDone?' · Routine done':''}</div></div>
       <button class="del-sleep" onclick="delSleep(${logs.length-1-i})">×</button>
     </div>`).join('');
+}
+
+/* ── SLEEP ROUTINE ── */
+const SLEEP_ROUTINE=[
+  {name:"Child's pose",duration:'90 sec',desc:'Kneel on the floor, sit back on your heels, then stretch your arms forward on the floor and rest your forehead down. Breathe deeply and let your lower back and hips release completely.',video:'https://www.youtube.com/watch?v=2MJGg-dUKh0',search:"child's pose stretch how to"},
+  {name:'Supine spinal twist',duration:'60 sec each side',desc:'Lie on your back, pull your right knee to your chest, then let it fall across your body to the left while your arms open wide. Look right. Hold 60 seconds then switch sides. Releases the thoracic spine and shoulder tension from desk work.',video:'https://www.youtube.com/watch?v=xCB6CpJMC8I',search:'supine spinal twist stretch lying down'},
+  {name:'Legs up the wall',duration:'2 min',desc:'Sit sideways next to a wall, then swing your legs up the wall as you lie back. Your body forms an L-shape. Close your eyes and breathe slowly. This drains lactic acid from your legs and calms your nervous system.',video:'https://www.youtube.com/watch?v=xCB6CpJMC8I',search:'legs up the wall pose benefits how to'},
+  {name:'Doorway chest opener',duration:'60 sec',desc:'Stand in a doorway and place both forearms on the door frame at shoulder height. Gently lean forward until you feel a stretch across your chest and the front of your shoulders. Hold and breathe. Directly undoes the chest tightening from sitting all day.',video:'https://www.youtube.com/watch?v=Kvu9OkFDKM0',search:'doorway chest stretch how to desk posture'},
+  {name:'Neck side stretch',duration:'30 sec each side',desc:'Sit or stand tall. Gently tilt your right ear toward your right shoulder until you feel a stretch on the left side of your neck. Hold 30 seconds. Switch sides. Releases the trap and neck tension that feeds your shoulder pain.',video:'https://www.youtube.com/watch?v=kgB2PzjGJAg',search:'neck side stretch trap release how to'},
+  {name:'4-7-8 breathing',duration:'2 min',desc:'Sit comfortably with your back straight. Inhale through your nose for 4 counts. Hold your breath for 7 counts. Exhale completely through your mouth for 8 counts. Repeat 4 times. This activates your parasympathetic nervous system and signals your body it is safe to sleep.',video:'https://www.youtube.com/watch?v=gz4G31LGyog',search:'4 7 8 breathing technique sleep'},
+];
+
+let sleepRoutineDone=new Set();
+
+function renderSleepRoutine(){
+  const todayKey=getTodayKey();
+  const doneSets=state.sleepRoutineDone||{};
+  sleepRoutineDone=new Set(doneSets[todayKey]||[]);
+  const doneCount=sleepRoutineDone.size;
+  const total=SLEEP_ROUTINE.length;
+  document.getElementById('sr-pct').textContent=doneCount+' of '+total+' done';
+  document.getElementById('sr-fill').style.width=Math.round(doneCount/total*100)+'%';
+  document.getElementById('sr-exercises').innerHTML=SLEEP_ROUTINE.map((ex,i)=>{
+    const isDone=sleepRoutineDone.has(i);
+    const sq=encodeURIComponent(ex.search);
+    return`<div class="sleep-ex-item ${isDone?'done':''}" id="sr-ex-${i}">
+      <div class="sleep-ex-header">
+        <span class="sleep-ex-name">${ex.name}</span>
+        <div style="display:flex;align-items:center;gap:8px;">
+          <span class="sleep-ex-dur">${ex.duration}</span>
+          <button onclick="toggleSleepEx(${i})" style="background:${isDone?'var(--sleep)':'var(--surface3)'};border:1px solid ${isDone?'var(--sleep)':'var(--border2)'};width:26px;height:26px;border-radius:50%;cursor:pointer;color:${isDone?'#0a0a0a':'var(--muted)'};font-size:14px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">${isDone?'✓':'○'}</button>
+        </div>
+      </div>
+      <div class="sleep-ex-desc">${ex.desc}</div>
+      <div class="sleep-ex-links">
+        <a href="${ex.video}" target="_blank" class="sv">▶ Watch</a>
+        <a href="https://www.youtube.com/results?search_query=${sq}" target="_blank" class="ss">🔍 More</a>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function toggleSleepRoutine(el){
+  const body=document.getElementById('sr-body');
+  const arrow=document.getElementById('sr-arrow');
+  body.classList.toggle('open');
+  arrow.textContent=body.classList.contains('open')?'−':'+';
+}
+
+function toggleSleepEx(i){
+  const todayKey=getTodayKey();
+  if(!state.sleepRoutineDone)state.sleepRoutineDone={};
+  if(!state.sleepRoutineDone[todayKey])state.sleepRoutineDone[todayKey]=[];
+  const idx=state.sleepRoutineDone[todayKey].indexOf(i);
+  if(idx>=0){state.sleepRoutineDone[todayKey].splice(idx,1);}
+  else{state.sleepRoutineDone[todayKey].push(i);}
+  saveState();renderSleepRoutine();
+}
+
+function completeSleepRoutine(){
+  const todayKey=getTodayKey();
+  if(!state.sleepRoutineDone)state.sleepRoutineDone={};
+  state.sleepRoutineDone[todayKey]=SLEEP_ROUTINE.map((_,i)=>i);
+  saveState();renderSleepRoutine();
+  // mark the nudge as done
+  state.sleepRoutineCompletedToday=todayKey;
+  saveState();updateSleepNudge();
+  alert('🌙 Routine complete — great work. Log your sleep when you wake up tomorrow.');
+}
+
+function updateSleepNudge(){
+  const nudge=document.getElementById('dash-sleep-nudge');
+  if(!nudge)return;
+  const now=new Date();
+  const hourSAST=parseInt(new Date().toLocaleTimeString('en-ZA',{hour:'2-digit',hour12:false,...SAST}));
+  const todayKey=getTodayKey();
+  const alreadyDone=state.sleepRoutineCompletedToday===todayKey;
+  // Show nudge from 8pm (20:00) until midnight, unless already done today
+  if(hourSAST>=20&&!alreadyDone){
+    nudge.style.display='block';
+  }else{
+    nudge.style.display='none';
+  }
 }
 function renderSleepQualityBtns(){
   document.getElementById('sq-row').innerHTML=[1,2,3,4,5].map(n=>`<button class="sq-btn ${sleepQuality===n?'sel':''}" onclick="setSleepQ(${n})">${n}</button>`).join('');
