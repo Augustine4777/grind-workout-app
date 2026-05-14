@@ -417,6 +417,88 @@ nav{position:sticky;top:0;z-index:100;background:rgba(10,10,10,0.96);backdrop-fi
 .dash-sleep-nudge:hover{border-color:#4a2a7a;}
 .dash-sleep-nudge-title{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:14px;letter-spacing:1px;text-transform:uppercase;color:var(--sleep);margin-bottom:3px;}
 .dash-sleep-nudge-sub{font-size:12px;color:#a78bfa88;}
+/* WEATHER COMMENT */
+.wx-comment{border-radius:6px;padding:8px 12px;margin-top:10px;font-size:13px;line-height:1.5;display:none;}
+.wx-comment.show{display:block;}
+.wx-comment.good{background:#052214;border:1px solid #1a4a30;color:#3ecf8e;}
+.wx-comment.warn{background:#2a1e00;border:1px solid #4a3200;color:#ffb830;}
+.wx-comment.bad{background:#2a0a0d;border:1px solid #4a1215;color:#ff4757;}
+.wx-comment strong{font-family:'Barlow Condensed',sans-serif;font-size:14px;font-weight:700;display:block;margin-bottom:2px;}
+/* KEGEL CARD */
+.dash-kegel{background:#052214;border:1px solid #1a4a30;border-radius:10px;padding:12px 14px;margin-bottom:10px;}
+.dash-kegel.done-today{border-color:#0a2a1a;opacity:0.65;}
+.dash-kegel-top{display:flex;align-items:center;justify-content:space-between;}
+.dk-title{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:14px;letter-spacing:1px;text-transform:uppercase;color:var(--full);margin-bottom:3px;}
+.dk-sub{font-size:12px;color:#3ecf8e66;}
+.dk-btn{width:34px;height:34px;border-radius:50%;border:1.5px solid var(--full);background:transparent;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:16px;transition:all 0.15s;flex-shrink:0;color:var(--full);}
+.dk-btn.done{background:var(--full);color:#0a0a0a;}
+/* GOAL FOODS */
+.goal-foods{background:var(--surface);border:1px solid var(--border);border-radius:8px;margin-bottom:12px;overflow:hidden;}
+.gf-header{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;background:var(--surface2);border-bottom:1px solid var(--border);cursor:pointer;}
+.gf-title{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:13px;letter-spacing:2px;text-transform:uppercase;color:var(--food);}
+.gf-arrow{color:var(--muted);font-size:16px;transition:transform 0.2s;}
+.gf-arrow.open{transform:rotate(180deg);}
+.gf-body{display:none;}
+.gf-body.open{display:block;}
+.gf-section-lbl{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);padding:10px 14px 4px;}
+.gf-row{display:flex;align-items:flex-start;gap:10px;padding:7px 14px;border-bottom:1px solid var(--border);}
+.gf-row:last-child{border-bottom:none;}
+.gf-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;margin-top:5px;}
+.gf-dot.muscle{background:var(--full);}
+.gf-dot.sexual{background:var(--pull);}
+.gf-name{font-size:13px;color:var(--text);font-weight:500;min-width:130px;flex-shrink:0;}
+.gf-reason{font-size:12px;color:var(--muted);line-height:1.4;}
+/* GROCERY */
+.gr-legend{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:12px;}
+.gr-leg{font-family:'Barlow Condensed',sans-serif;font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:2px 8px;border-radius:3px;}
+.gr-filter-tabs{display:flex;gap:6px;margin-bottom:12px;overflow-x:auto;scrollbar-width:none;}
+.gr-filter-tabs::-webkit-scrollbar{display:none;}
+.gr-filter-btn{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:10px;letter-spacing:2px;text-transform:uppercase;padding:5px 12px;border-radius:4px;background:var(--surface);border:1px solid var(--border2);color:var(--muted);cursor:pointer;white-space:nowrap;transition:all 0.12s;}
+.gr-filter-btn:hover{color:var(--text);}
+.gr-filter-btn.active{background:var(--accent-dark);border-color:var(--accent-dim);color:var(--accent);}
+.gr-prog-bar{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:11px 13px;margin-bottom:12px;display:flex;align-items:center;gap:12px;}
+.gr-prog-nums{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:22px;color:var(--accent);flex-shrink:0;}
+.gr-prog-track{flex:1;background:var(--surface2);border-radius:3px;height:5px;overflow:hidden;}
+.gr-prog-fill{height:100%;background:var(--accent);border-radius:3px;transition:width 0.4s ease;}
+.gr-prog-pct{font-size:11px;color:var(--muted);flex-shrink:0;}
+.gr-section{background:var(--surface);border:1px solid var(--border);border-radius:8px;margin-bottom:8px;overflow:hidden;}
+.gr-section-header{display:flex;align-items:center;justify-content:space-between;padding:9px 13px;background:var(--surface2);border-bottom:1px solid var(--border);}
+.gr-section-title{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--text);}
+.gr-section-done{font-size:11px;color:var(--accent);}
+.gr-item{display:flex;align-items:center;gap:10px;padding:10px 13px;border-bottom:1px solid var(--border);cursor:pointer;transition:background 0.1s;user-select:none;}
+.gr-item:last-child{border-bottom:none;}
+.gr-item:hover{background:var(--surface2);}
+.gr-item.checked{opacity:0.4;}
+.gr-item.checked .gr-name{text-decoration:line-through;color:var(--muted);}
+.gr-check{width:24px;height:24px;border-radius:50%;border:1.5px solid var(--border2);flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all 0.15s;}
+.gr-item.checked .gr-check{background:var(--accent);border-color:var(--accent);}
+.gr-checkmark{width:7px;height:4px;border-left:2px solid #0a0a0a;border-bottom:2px solid #0a0a0a;transform:rotate(-45deg) translateY(-1px);display:none;}
+.gr-item.checked .gr-checkmark{display:block;}
+.gr-body{flex:1;min-width:0;}
+.gr-name{font-size:13px;color:var(--text);line-height:1.3;}
+.gr-qty{font-size:10px;color:var(--muted);margin-top:1px;}
+.gr-badge{font-family:'Barlow Condensed',sans-serif;font-size:8px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:2px 6px;border-radius:3px;white-space:nowrap;flex-shrink:0;}
+.gr-done-btn{width:100%;font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:14px;letter-spacing:3px;text-transform:uppercase;padding:13px;background:var(--accent);color:#0a0a0a;border:none;border-radius:8px;cursor:pointer;transition:all 0.12s;margin-bottom:6px;}
+.gr-done-btn:hover{background:#d4f54a;}
+.gr-hist-toggle{width:100%;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:11px;letter-spacing:2px;text-transform:uppercase;padding:9px;background:var(--surface);color:var(--muted);border:1px solid var(--border2);border-radius:6px;cursor:pointer;margin-bottom:20px;}
+/* GROCERY SUMMARY */
+.sum-card{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:13px 14px;margin-bottom:10px;}
+.sum-title{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:14px;letter-spacing:2px;text-transform:uppercase;color:var(--accent);margin-bottom:10px;}
+.sum-item{font-size:13px;color:var(--text);padding:5px 0;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;}
+.sum-item:last-child{border-bottom:none;}
+.sum-qty{font-size:11px;color:var(--muted);}
+.extra-row{display:flex;gap:8px;margin-bottom:10px;}
+.extra-inp{flex:1;background:var(--surface2);border:1px solid var(--border2);border-radius:6px;padding:9px 12px;color:var(--text);font-family:'Barlow',sans-serif;font-size:14px;}
+.extra-item{font-size:13px;color:var(--hold);padding:5px 0;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;}
+.extra-item:last-child{border-bottom:none;}
+.del-extra{background:none;border:none;color:var(--muted2);cursor:pointer;font-size:14px;padding:2px 5px;}
+.del-extra:hover{color:var(--down);}
+/* GROCERY HISTORY */
+.gr-hist-card{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:12px 14px;margin-bottom:8px;}
+.gr-hist-date{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:13px;letter-spacing:1px;color:var(--accent);margin-bottom:3px;}
+.gr-hist-meta{font-size:11px;color:var(--muted);margin-bottom:6px;}
+.gr-hist-body{font-size:12px;color:var(--muted);line-height:1.6;}
+.gr-hist-body strong{color:var(--text);}
 </style>
 </head>
 <body>
@@ -432,6 +514,7 @@ nav{position:sticky;top:0;z-index:100;background:rgba(10,10,10,0.96);backdrop-fi
     <button class="nav-tab" onclick="go('progress-screen')">Progress</button>
     <button class="nav-tab" onclick="go('timer-screen')">Timer</button>
     <button class="nav-tab" onclick="go('custom-screen')">Custom</button>
+    <button class="nav-tab" onclick="go('grocery-screen')">Grocery</button>
     <button class="nav-tab" onclick="go('history-screen')">History</button>
   </div>
 </nav>
@@ -486,6 +569,20 @@ nav{position:sticky;top:0;z-index:100;background:rgba(10,10,10,0.96);backdrop-fi
   </div>
 
   <div id="dash-upgrades-block"></div>
+
+  <!-- KEGEL DAILY CARD -->
+  <div class="dash-kegel" id="dash-kegel">
+    <div class="dash-kegel-top">
+      <div>
+        <div class="dk-title">💪 Daily kegel exercise</div>
+        <div class="dk-sub">3 sets × 10 squeezes × 3s hold — tap to mark done</div>
+      </div>
+      <button class="dk-btn" id="dk-btn" onclick="toggleKegel()">○</button>
+    </div>
+  </div>
+
+  <!-- WEATHER COMMENT -->
+  <div class="wx-comment" id="wx-comment"></div>
   <div class="dash-sleep-nudge" id="dash-sleep-nudge" onclick="go('sleep-screen')">
     <div class="dash-sleep-nudge-title">🌙 Time to wind down</div>
     <div class="dash-sleep-nudge-sub">Your 10-minute sleep routine is ready — tap to start</div>
@@ -646,8 +743,35 @@ nav{position:sticky;top:0;z-index:100;background:rgba(10,10,10,0.96);backdrop-fi
     <div style="font-size:11px;color:var(--muted);margin-top:4px;" id="f-remaining">Set your weight to calculate target</div>
   </div>
 
-  <div class="sec-label" style="margin-top:0;">Log a meal</div>
-  <div class="card-block">
+  <!-- GOAL FOODS -->
+  <div class="goal-foods">
+    <div class="gf-header" onclick="toggleGoalFoods(this)">
+      <span class="gf-title">Goal foods</span>
+      <span class="gf-arrow">▾</span>
+    </div>
+    <div class="gf-body" id="gf-body">
+      <div class="gf-section-lbl">Lean muscle</div>
+      <div class="gf-row"><div class="gf-dot muscle"></div><span class="gf-name">Eggs</span><span class="gf-reason">Complete protein with all amino acids — best muscle food available</span></div>
+      <div class="gf-row"><div class="gf-dot muscle"></div><span class="gf-name">Chicken breast</span><span class="gf-reason">Lean, high protein, low fat — primary muscle building food</span></div>
+      <div class="gf-row"><div class="gf-dot muscle"></div><span class="gf-name">Sardines / tuna</span><span class="gf-reason">High protein, omega-3 reduces muscle inflammation after training</span></div>
+      <div class="gf-row"><div class="gf-dot muscle"></div><span class="gf-name">Greek yoghurt</span><span class="gf-reason">High casein protein — ideal before bed for overnight muscle repair</span></div>
+      <div class="gf-row"><div class="gf-dot muscle"></div><span class="gf-name">Spinach</span><span class="gf-reason">Iron and magnesium — directly supports muscle contraction and recovery</span></div>
+      <div class="gf-row"><div class="gf-dot muscle"></div><span class="gf-name">Jungle oats</span><span class="gf-reason">Slow-release carbs — fuels your morning session without a spike</span></div>
+      <div class="gf-row"><div class="gf-dot muscle"></div><span class="gf-name">Sweet potato</span><span class="gf-reason">Best training day carb — sustained energy, rich in potassium</span></div>
+      <div class="gf-row"><div class="gf-dot muscle"></div><span class="gf-name">Peanut butter</span><span class="gf-reason">Healthy fats and protein — good post-workout snack with oats or banana</span></div>
+      <div class="gf-row"><div class="gf-dot muscle"></div><span class="gf-name">Avocado</span><span class="gf-reason">Healthy fat supports testosterone production and joint health</span></div>
+      <div class="gf-row"><div class="gf-dot muscle"></div><span class="gf-name">Biltong</span><span class="gf-reason">High protein, low carb — best South African snack for your goal</span></div>
+      <div class="gf-section-lbl">Sexual health</div>
+      <div class="gf-row"><div class="gf-dot sexual"></div><span class="gf-name">Beetroot</span><span class="gf-reason">Nitric oxide booster — improves blood vessel dilation and circulation</span></div>
+      <div class="gf-row"><div class="gf-dot sexual"></div><span class="gf-name">Watermelon</span><span class="gf-reason">Contains citrulline — relaxes blood vessels similarly to how Viagra works</span></div>
+      <div class="gf-row"><div class="gf-dot sexual"></div><span class="gf-name">Pumpkin seeds</span><span class="gf-reason">High zinc — zinc directly supports testosterone production</span></div>
+      <div class="gf-row"><div class="gf-dot sexual"></div><span class="gf-name">Dark chocolate 70%+</span><span class="gf-reason">Flavonoids improve circulation — eat a small square daily</span></div>
+      <div class="gf-row"><div class="gf-dot sexual"></div><span class="gf-name">Spinach</span><span class="gf-reason">Nitrates improve blood flow — benefits both muscle and sexual health</span></div>
+      <div class="gf-row"><div class="gf-dot sexual"></div><span class="gf-name">Beef and pork</span><span class="gf-reason">Zinc-rich red meat supports testosterone — already on your list</span></div>
+    </div>
+  </div>
+
+  <div class="sec-label" style="margin-top:0;">Log a meal</div>  <div class="card-block">
     <div class="form-field">
       <label>Meal / food item</label>
       <input type="text" id="f-meal-name" placeholder="e.g. Chicken breast, protein shake">
@@ -805,6 +929,61 @@ nav{position:sticky;top:0;z-index:100;background:rgba(10,10,10,0.96);backdrop-fi
 </div>
 
 <!-- HISTORY -->
+<!-- GROCERY LIST -->
+<div id="grocery-screen" class="screen">
+  <div class="page-title">Grocery list</div>
+  <div class="gr-legend">
+    <span class="gr-leg" style="background:var(--keep-bg);color:var(--keep-c);">Keep</span>
+    <span class="gr-leg" style="background:var(--new-bg);color:var(--new-c);">Lean muscle</span>
+    <span class="gr-leg" style="background:var(--health-bg);color:var(--health-c);">Sexual health</span>
+    <span class="gr-leg" style="background:var(--reduce-bg);color:var(--reduce-c);">Reduced</span>
+  </div>
+  <div class="gr-filter-tabs">
+    <button class="gr-filter-btn active" onclick="grSetFilter('all',this)">All</button>
+    <button class="gr-filter-btn" onclick="grSetFilter('remaining',this)">Still to get</button>
+    <button class="gr-filter-btn" onclick="grSetFilter('done',this)">Got it</button>
+  </div>
+  <div class="gr-prog-bar">
+    <span class="gr-prog-nums" id="gr-prog-nums">0/0</span>
+    <div class="gr-prog-track"><div class="gr-prog-fill" id="gr-prog-fill" style="width:0%"></div></div>
+    <span class="gr-prog-pct" id="gr-prog-pct">0%</span>
+  </div>
+  <div id="gr-list"></div>
+  <div style="margin-top:14px;">
+    <button class="gr-done-btn" onclick="grShowSummary()">Done — view summary & reset</button>
+    <button class="gr-hist-toggle" onclick="go('grocery-history-screen')">View shopping history</button>
+  </div>
+</div>
+
+<!-- GROCERY SUMMARY -->
+<div id="grocery-summary-screen" class="screen">
+  <button class="back-btn" onclick="go('grocery-screen')">← Back to list</button>
+  <div class="page-title" style="font-size:26px;">Shop summary</div>
+  <div class="sum-card">
+    <div class="sum-title" id="sum-date"></div>
+    <div id="sum-bought"></div>
+  </div>
+  <div class="sum-card">
+    <div class="sum-title">Not on the list — add extras</div>
+    <div class="extra-row">
+      <input type="text" class="extra-inp" id="extra-inp" placeholder="e.g. 2L orange juice">
+      <button class="btn-primary" style="width:auto;padding:9px 16px;" onclick="addExtra()">Add</button>
+    </div>
+    <div id="extra-list"></div>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:20px;">
+    <button class="btn-secondary" onclick="go('grocery-screen')">Back to list</button>
+    <button class="btn-primary" onclick="grSaveAndReset()">Save & reset list</button>
+  </div>
+</div>
+
+<!-- GROCERY HISTORY -->
+<div id="grocery-history-screen" class="screen">
+  <button class="back-btn" onclick="go('grocery-screen')">← Back to list</button>
+  <div class="page-title" style="font-size:26px;">Shopping history</div>
+  <div id="gr-hist-list"></div>
+</div>
+
 <div id="history-screen" class="screen">
   <div class="page-title">History</div>
   <div id="hist-content"></div>
@@ -1030,7 +1209,8 @@ function go(id){
   document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
   document.getElementById(id).classList.add('active');
   document.querySelectorAll('.nav-tab').forEach(t=>t.classList.remove('active'));
-  const tabs=['dashboard','','walk-screen','hydro-screen','food-screen','sleep-screen','progress-screen','timer-screen','custom-screen','history-screen'];
+  const tabs=['dashboard','','walk-screen','hydro-screen','food-screen','sleep-screen','progress-screen','timer-screen','custom-screen','grocery-screen','history-screen'];
+  if(id==='grocery-summary-screen'||id==='grocery-history-screen'){document.querySelectorAll('.nav-tab').forEach(t=>t.classList.remove('active'));}
   const idx=tabs.indexOf(id);
   if(idx>=0&&idx<document.querySelectorAll('.nav-tab').length)document.querySelectorAll('.nav-tab')[idx].classList.add('active');
   if(id==='dashboard'){renderDashboard();document.querySelectorAll('.nav-tab')[0].classList.add('active');}
@@ -1042,6 +1222,8 @@ function go(id){
   if(id==='progress-screen')renderProgressScreen();
   if(id==='custom-screen')renderCustomList();
   if(id==='walk-screen')renderWalkHistory();
+  if(id==='grocery-screen')grRender();
+  if(id==='grocery-history-screen')grRenderHistory();
 }
 
 /* ── DASHBOARD ── */
@@ -1056,6 +1238,7 @@ function renderDashboard(){
   document.getElementById('d-s-week').textContent=state.weekNum;
   document.getElementById('d-upg-val').textContent=state.totalUpgrades||0;
   updateSleepNudge();
+  updateKegel();
   // hydro
   const hydroToday=getTodayHydro();
   const hydroTgt=getHydroTarget();
@@ -1104,6 +1287,7 @@ async function fetchWeatherDash(){
       document.getElementById('d-wx-wind').textContent=Math.round(c.wind_speed_10m);
       document.getElementById('d-wx-humid').textContent=c.relative_humidity_2m+'%';
       document.getElementById('d-wx-icon').textContent=icon;
+      showWeatherComment(Math.round(c.temperature_2m),c.precipitation_probability||0,Math.round(c.wind_speed_10m),c.relative_humidity_2m);
       try{
         const geo=await fetch(`https://nominatim.openstreetmap.org/reverse?lat=${wxLat}&lon=${wxLon}&format=json`);
         const gd=await geo.json();
@@ -1814,6 +1998,255 @@ function renderHistory(){
     }
   }
   el.innerHTML=html;
+}
+
+/* ── WEATHER SMART COMMENTS ── */
+function getWeatherComment(temp,rain,wind,humid){
+  if(rain>60)return{cls:'bad',title:'Rain likely today',msg:'Good chance of rain — bring an umbrella if you are heading out. Consider doing your walk earlier or indoors.'};
+  if(rain>30)return{cls:'warn',title:'Some rain possible',msg:'A bit of rain possible — keep an umbrella handy just in case.'};
+  if(temp>33)return{cls:'bad',title:'Heat advisory',msg:'Very hot today — hydrate extra before your walk. Aim for an additional 500ml of water. Walk early morning or evening.'};
+  if(temp>28)return{cls:'warn',title:'Warm conditions',msg:'It\'s warm out — drink water before and after your walk. Wear light clothing and consider a hat.'};
+  if(temp<10)return{cls:'warn',title:'Cold today',msg:'It\'s cold — wear a jersey or light jacket before heading out for your walk. Warm up indoors first.'};
+  if(temp<5)return{cls:'bad',title:'Very cold today',msg:'Quite cold outside — layer up with a warm jacket and beanie before your walk. Warm up thoroughly indoors first.'};
+  if(wind>35)return{cls:'warn',title:'Windy conditions',msg:'Strong winds today — your walk will feel harder than usual. Consider a shorter route or stay indoors.'};
+  if(humid>85)return{cls:'warn',title:'High humidity',msg:'Very humid today — you will sweat more than usual. Drink extra water and take it easy on the intensity.'};
+  return{cls:'good',title:'Good conditions today',msg:'Weather looks good for a walk and outdoor training. Great time to get moving.'};
+}
+function showWeatherComment(temp,rain,wind,humid){
+  const el=document.getElementById('wx-comment');
+  if(!el)return;
+  const{cls,title,msg}=getWeatherComment(temp,rain,wind,humid);
+  el.className='wx-comment show '+cls;
+  el.innerHTML=`<strong>${title}</strong>${msg}`;
+}
+
+/* ── KEGEL CARD ── */
+function updateKegel(){
+  const todayKey=getTodayKey();
+  const done=state.kegelDone&&state.kegelDone[todayKey];
+  const card=document.getElementById('dash-kegel');
+  const btn=document.getElementById('dk-btn');
+  if(!card||!btn)return;
+  card.classList.toggle('done-today',done);
+  btn.textContent=done?'✓':'○';
+  btn.classList.toggle('done',done);
+}
+function toggleKegel(){
+  const todayKey=getTodayKey();
+  if(!state.kegelDone)state.kegelDone={};
+  state.kegelDone[todayKey]=!state.kegelDone[todayKey];
+  saveState();updateKegel();
+}
+
+/* ── GOAL FOODS ── */
+function toggleGoalFoods(header){
+  const body=document.getElementById('gf-body');
+  const arrow=header.querySelector('.gf-arrow');
+  body.classList.toggle('open');
+  arrow.classList.toggle('open');
+}
+
+/* ── GROCERY LIST ── */
+const GR_ITEMS=[
+  {cat:'Meat & protein',items:[
+    {name:'Pork',qty:'3kg',tag:'keep'},
+    {name:'Beef stew',qty:'3kg',tag:'keep'},
+    {name:'Chicken',qty:'2kg',tag:'keep'},
+    {name:'Wors',qty:'3kg',tag:'keep'},
+    {name:'Tripe',qty:'1kg',tag:'keep'},
+    {name:'Bones (bone broth — joints & shoulder)',qty:'1kg',tag:'keep'},
+    {name:'Eggs',qty:'30',tag:'keep'},
+    {name:'Canned tuna or sardines',qty:'12 cans',tag:'new'},
+    {name:'Biltong',qty:'250g',tag:'new'},
+  ]},
+  {cat:'Dairy',items:[
+    {name:'Full cream milk',qty:'6×',tag:'keep'},
+    {name:'Cheese',qty:'400g',tag:'keep'},
+    {name:'Greek yoghurt or cottage cheese',qty:'500g',tag:'new'},
+    {name:'Real butter (replaces Rama)',qty:'250g',tag:'new'},
+  ]},
+  {cat:'Cupboard staples',items:[
+    {name:'Rice',qty:'5kg',tag:'keep'},
+    {name:'Jungle oats muesli',qty:'750g',tag:'keep'},
+    {name:'Peanut butter',qty:'400g',tag:'keep'},
+    {name:'Iwisa maize meal',qty:'5kg',tag:'reduce'},
+    {name:'Samp',qty:'500g',tag:'reduce'},
+    {name:'Macaroni',qty:'1kg',tag:'reduce'},
+    {name:'Chakalaka',qty:'400g × 2',tag:'keep'},
+    {name:'Virgin oil',qty:'1l',tag:'keep'},
+    {name:'Weetbix',qty:'900g',tag:'keep'},
+    {name:'Oros',qty:'1l',tag:'keep'},
+    {name:'Lentils or red kidney beans',qty:'2 cans',tag:'new'},
+    {name:'Pumpkin seeds (zinc → testosterone)',qty:'200g',tag:'health'},
+    {name:'Dark chocolate 70%+ (circulation)',qty:'200g',tag:'health'},
+    {name:'Soup packets',qty:'5',tag:'keep'},
+  ]},
+  {cat:'Vegetables & fruit',items:[
+    {name:'Potatoes',qty:'7kg',tag:'keep'},
+    {name:'Carrots',qty:'750g',tag:'keep'},
+    {name:'Spinach (iron + magnesium)',qty:'500g',tag:'new'},
+    {name:'Broccoli (micronutrients)',qty:'500g',tag:'new'},
+    {name:'Sweet potatoes (training carbs)',qty:'2kg',tag:'new'},
+    {name:'Avocados (joint health + hormones)',qty:'4–6',tag:'new'},
+    {name:'Beetroot (nitric oxide → blood flow)',qty:'500g',tag:'health'},
+    {name:'Watermelon (citrulline → circulation)',qty:'1 whole',tag:'health'},
+  ]},
+  {cat:'Drinks',items:[
+    {name:'Chamomile tea (sleep quality)',qty:'1 box',tag:'keep'},
+    {name:'Green tea peach & mango',qty:'2 boxes',tag:'keep'},
+    {name:'Tetley black & green tea',qty:'1 box',tag:'keep'},
+  ]},
+  {cat:'Spices & condiments',items:[
+    {name:'Cayenne, Paprika, Turmeric',qty:'1 each',tag:'keep'},
+    {name:'Ground cloves',qty:'1',tag:'keep'},
+    {name:'Rajah, Six Gun, Spice for Rice',qty:'1 each',tag:'keep'},
+    {name:'Himalayan salt',qty:'1',tag:'keep'},
+    {name:'Peri-peri sauce',qty:'250ml',tag:'keep'},
+    {name:'Worcester sauce',qty:'250ml',tag:'keep'},
+    {name:'Knorrox beef stock',qty:'12×10g',tag:'keep'},
+    {name:'Tomato sauce',qty:'700ml',tag:'keep'},
+    {name:'Garlic n chilli',qty:'100g',tag:'keep'},
+    {name:'Garlic n ginger',qty:'100g',tag:'keep'},
+  ]},
+  {cat:'Bathroom & body care',items:[
+    {name:'Surf washing powder',qty:'2kg',tag:'keep'},
+    {name:'Sta Soft',qty:'2l',tag:'keep'},
+    {name:'Twinsaver toilet paper',qty:'8pk',tag:'keep'},
+    {name:'Aqueous cream',qty:'1',tag:'keep'},
+    {name:'Bar soap',qty:'5',tag:'keep'},
+    {name:'Coconut oil Simple Truth',qty:'1',tag:'keep'},
+    {name:'Mortein Naturguard',qty:'1',tag:'keep'},
+    {name:'Toothpaste',qty:'2',tag:'keep'},
+    {name:'Roll-on Nivea',qty:'2×50ml',tag:'keep'},
+    {name:'Vaseline',qty:'450ml',tag:'keep'},
+  ]},
+];
+
+const GR_BADGE={keep:{bg:'var(--keep-bg)',c:'var(--keep-c)',lbl:'Keep'},new:{bg:'var(--new-bg)',c:'var(--new-c)',lbl:'Lean muscle'},health:{bg:'var(--health-bg)',c:'var(--health-c)',lbl:'Sexual health'},reduce:{bg:'var(--reduce-bg)',c:'var(--reduce-c)',lbl:'Reduced'}};
+const GR_CIRC=87.96;
+let grFilter='all';
+let grExtras=[];
+
+function grId(ci,ii){return 'gr_'+ci+'_'+ii;}
+function grToggle(id){
+  if(!state.grChecked)state.grChecked=[];
+  const idx=state.grChecked.indexOf(id);
+  if(idx>=0){state.grChecked.splice(idx,1);}else{state.grChecked.push(id);}
+  saveState();grRender();
+}
+function grSetFilter(f,btn){
+  grFilter=f;
+  document.querySelectorAll('.gr-filter-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  grRender();
+}
+
+function grRender(){
+  if(!state.grChecked)state.grChecked=[];
+  const checked=new Set(state.grChecked);
+  const total=GR_ITEMS.reduce((a,c)=>a+c.items.length,0);
+  const doneCount=checked.size;
+  const pct=total>0?Math.round(doneCount/total*100):0;
+  document.getElementById('gr-prog-nums').textContent=doneCount+'/'+total;
+  document.getElementById('gr-prog-fill').style.width=pct+'%';
+  document.getElementById('gr-prog-pct').textContent=pct+'%';
+  let html='';
+  GR_ITEMS.forEach((section,ci)=>{
+    const vis=section.items.filter((_,ii)=>{
+      const done=checked.has(grId(ci,ii));
+      if(grFilter==='remaining')return!done;
+      if(grFilter==='done')return done;
+      return true;
+    });
+    if(!vis.length)return;
+    const secDone=section.items.filter((_,ii)=>checked.has(grId(ci,ii))).length;
+    const b=GR_BADGE;
+    html+=`<div class="gr-section"><div class="gr-section-header"><span class="gr-section-title">${section.cat}</span><span class="gr-section-done">${secDone}/${section.items.length}</span></div>`;
+    vis.forEach(item=>{
+      const ii=section.items.indexOf(item);
+      const id=grId(ci,ii);
+      const done=checked.has(id);
+      const bd=b[item.tag]||b.keep;
+      html+=`<div class="gr-item ${done?'checked':''}" onclick="grToggle('${id}')">
+        <div class="gr-check"><div class="gr-checkmark"></div></div>
+        <div class="gr-body"><div class="gr-name">${item.name}</div><div class="gr-qty">${item.qty}</div></div>
+        <span class="gr-badge" style="background:${bd.bg};color:${bd.c};">${bd.lbl}</span>
+      </div>`;
+    });
+    html+='</div>';
+  });
+  if(!html)html='<div style="text-align:center;padding:24px;color:var(--muted);font-size:13px;">Nothing here.</div>';
+  document.getElementById('gr-list').innerHTML=html;
+}
+
+function grShowSummary(){
+  if(!state.grChecked||!state.grChecked.length){
+    alert('Nothing ticked yet. Tick items as you shop then tap Done.');return;
+  }
+  const checked=new Set(state.grChecked);
+  // Build summary grouped by category
+  let sumHtml='';
+  let totalBought=0;
+  GR_ITEMS.forEach((section,ci)=>{
+    const bought=section.items.filter((_,ii)=>checked.has(grId(ci,ii)));
+    if(!bought.length)return;
+    totalBought+=bought.length;
+    sumHtml+=bought.map(item=>`<div class="sum-item"><span>${item.name}</span><span class="sum-qty">${item.qty}</span></div>`).join('');
+  });
+  document.getElementById('sum-date').textContent=TODAY()+' — '+totalBought+' items';
+  document.getElementById('sum-bought').innerHTML=sumHtml;
+  grExtras=[];
+  renderExtras();
+  go('grocery-summary-screen');
+  document.querySelectorAll('.nav-tab').forEach(t=>t.classList.remove('active'));
+}
+
+function addExtra(){
+  const inp=document.getElementById('extra-inp');
+  const val=inp.value.trim();
+  if(!val)return;
+  grExtras.push({name:val,time:NOW_TIME()});
+  inp.value='';
+  renderExtras();
+}
+function delExtra(i){grExtras.splice(i,1);renderExtras();}
+function renderExtras(){
+  const el=document.getElementById('extra-list');
+  if(!grExtras.length){el.innerHTML='<div style="font-size:12px;color:var(--muted);padding:6px 0;">Nothing added yet.</div>';return;}
+  el.innerHTML=grExtras.map((e,i)=>`<div class="extra-item"><span>${e.name} <span style="font-size:10px;color:var(--muted);">${e.time}</span></span><button class="del-extra" onclick="delExtra(${i})">×</button></div>`).join('');
+}
+
+function grSaveAndReset(){
+  if(!confirm('Save this summary and reset the list for next time?'))return;
+  const checked=new Set(state.grChecked||[]);
+  const bought=[];
+  GR_ITEMS.forEach((section,ci)=>{
+    section.items.forEach((item,ii)=>{if(checked.has(grId(ci,ii)))bought.push({name:item.name,qty:item.qty,cat:section.cat});});
+  });
+  if(!state.grHistory)state.grHistory=[];
+  state.grHistory.push({date:TODAY(),time:NOW_TIME(),bought,extras:JSON.parse(JSON.stringify(grExtras))});
+  state.grChecked=[];
+  saveState();
+  grFilter='all';
+  document.querySelectorAll('.gr-filter-btn').forEach((b,i)=>b.classList.toggle('active',i===0));
+  go('grocery-screen');
+}
+
+function grRenderHistory(){
+  const el=document.getElementById('gr-hist-list');
+  const hist=state.grHistory||[];
+  if(!hist.length){el.innerHTML='<div style="text-align:center;padding:30px;color:var(--muted);font-size:13px;">No shopping trips recorded yet.</div>';return;}
+  el.innerHTML=hist.slice().reverse().map(h=>{
+    const catGroups={};
+    (h.bought||[]).forEach(item=>{if(!catGroups[item.cat])catGroups[item.cat]=[];catGroups[item.cat].push(item.name);});
+    const catHtml=Object.entries(catGroups).map(([cat,items])=>`<div><strong>${cat}:</strong> ${items.join(', ')}</div>`).join('');
+    const extraHtml=h.extras&&h.extras.length?`<div style="margin-top:4px;color:var(--hold);"><strong>Extras:</strong> ${h.extras.map(e=>e.name).join(', ')}</div>`:'';
+    return`<div class="gr-hist-card">
+      <div class="gr-hist-date">${h.date} · ${h.time||''}</div>
+      <div class="gr-hist-meta">${(h.bought||[]).length} items bought${h.extras&&h.extras.length?' · '+h.extras.length+' extras':''}</div>
+      <div class="gr-hist-body">${catHtml}${extraHtml}</div>
+    </div>`;
+  }).join('');
 }
 
 /* ── INIT ── */
