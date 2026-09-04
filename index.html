@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-<title>GRIND v5</title>
+<title>GRIND v4</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@300;400;500;600;700;800;900&family=Barlow:wght@300;400;500&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
@@ -499,6 +499,57 @@ nav{position:sticky;top:0;z-index:100;background:rgba(10,10,10,0.96);backdrop-fi
 .gr-hist-meta{font-size:11px;color:var(--muted);margin-bottom:6px;}
 .gr-hist-body{font-size:12px;color:var(--muted);line-height:1.6;}
 .gr-hist-body strong{color:var(--text);}
+
+/* ALCOHOL CARD */
+.dash-alcohol{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:12px 14px;margin-bottom:10px;transition:all 0.12s;}
+.dash-alcohol.logged-yes{border-color:#4a1215;background:var(--down-bg);}
+.dash-alcohol.logged-no{border-color:#1a4a30;background:#052214;}
+.da-top{display:flex;align-items:center;justify-content:space-between;}
+.da-title{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:14px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-bottom:3px;}
+.da-sub{font-size:12px;color:var(--muted2);}
+.da-logged-yes .da-title{color:var(--down);}
+.da-logged-no .da-title{color:var(--full);}
+.da-btns{display:flex;gap:6px;}
+.da-btn{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:11px;letter-spacing:1px;text-transform:uppercase;padding:6px 14px;border-radius:5px;cursor:pointer;border:none;transition:all 0.12s;}
+.da-btn-yes{background:var(--down-bg);color:var(--down);border:1px solid var(--down-border);}
+.da-btn-yes.active{background:var(--down);color:#0a0a0a;}
+.da-btn-no{background:#052214;color:var(--full);border:1px solid #1a4a30;}
+.da-btn-no.active{background:var(--full);color:#0a0a0a;}
+.da-detail{margin-top:10px;display:none;}
+.da-detail.show{display:block;}
+.da-detail-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px;}
+.da-field label{font-size:10px;color:var(--muted);display:block;margin-bottom:4px;letter-spacing:1px;text-transform:uppercase;font-family:'Barlow Condensed',sans-serif;font-weight:700;}
+.da-field input,.da-field select{width:100%;background:var(--surface2);border:1px solid var(--border2);border-radius:5px;padding:7px 10px;color:var(--text);font-family:'Barlow',sans-serif;font-size:13px;}
+.da-field select option{background:var(--surface2);}
+.da-save-btn{width:100%;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:12px;letter-spacing:2px;text-transform:uppercase;padding:8px;background:var(--down);color:#0a0a0a;border:none;border-radius:5px;cursor:pointer;}
+.da-summary{margin-top:8px;font-size:12px;color:var(--down);font-style:italic;}
+
+/* PRE-BED REMINDER */
+.dash-prebed{background:#2a1200;border:1px solid #4a2800;border-radius:10px;padding:12px 14px;margin-bottom:10px;display:none;}
+.dash-prebed.show{display:block;}
+.db-title{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:14px;letter-spacing:1px;text-transform:uppercase;color:var(--cardio);margin-bottom:6px;}
+.db-avoid{font-size:12px;color:var(--muted);margin-bottom:6px;line-height:1.6;}
+.db-suggest{font-size:12px;color:var(--text);margin-bottom:8px;line-height:1.6;}
+.db-suggest strong{color:var(--cardio);font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:700;display:block;margin-bottom:3px;}
+.db-dismiss{background:none;border:1px solid var(--border2);border-radius:4px;padding:5px 12px;color:var(--muted);font-size:11px;cursor:pointer;font-family:'Barlow Condensed',sans-serif;font-weight:700;letter-spacing:1px;text-transform:uppercase;}
+
+/* NIGHT SWEAT LOG */
+.sweat-row{display:flex;gap:6px;flex-wrap:wrap;margin-top:6px;}
+.sweat-btn{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:10px;letter-spacing:1px;text-transform:uppercase;padding:5px 11px;border-radius:4px;cursor:pointer;border:1px solid var(--border2);background:var(--surface2);color:var(--muted);transition:all 0.12s;}
+.sweat-btn:hover{color:var(--text);}
+.sweat-btn.sel-none{background:#052214;border-color:#1a4a30;color:var(--full);}
+.sweat-btn.sel-mild{background:#2a1e00;border-color:#4a3200;color:var(--hold);}
+.sweat-btn.sel-moderate{background:#2a1200;border-color:#4a2800;color:var(--cardio);}
+.sweat-btn.sel-drenched{background:var(--down-bg);border-color:var(--down-border);color:var(--down);}
+
+/* CORRELATION VIEW */
+.corr-grid{display:flex;flex-direction:column;gap:4px;margin-top:8px;}
+.corr-day-row{display:grid;grid-template-columns:70px 1fr 1fr 1fr 1fr;gap:6px;align-items:center;padding:5px 0;border-bottom:1px solid var(--border);font-size:11px;}
+.corr-day-row:last-child{border-bottom:none;}
+.corr-day-label{color:var(--muted);font-size:10px;}
+.corr-cell{display:flex;align-items:center;justify-content:center;border-radius:4px;padding:3px 6px;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:11px;}
+.corr-header{display:grid;grid-template-columns:70px 1fr 1fr 1fr 1fr;gap:6px;padding:4px 0;border-bottom:1px solid var(--border2);}
+.corr-header span{font-size:9px;color:var(--muted);text-align:center;letter-spacing:1px;text-transform:uppercase;}
 </style>
 </head>
 <body>
@@ -582,6 +633,52 @@ nav{position:sticky;top:0;z-index:100;background:rgba(10,10,10,0.96);backdrop-fi
   </div>
 
   <!-- WEATHER COMMENT -->
+  <!-- ALCOHOL LOG CARD -->
+  <div class="dash-alcohol" id="dash-alcohol">
+    <div class="da-top">
+      <div>
+        <div class="da-title" id="da-title">🍺 Alcohol today?</div>
+        <div class="da-sub" id="da-sub">Tap to log — helps track night sweat correlation</div>
+      </div>
+      <div class="da-btns">
+        <button class="da-btn da-btn-yes" id="da-btn-yes" onclick="setAlcohol(true)">Yes</button>
+        <button class="da-btn da-btn-no" id="da-btn-no" onclick="setAlcohol(false)">No</button>
+      </div>
+    </div>
+    <div class="da-detail" id="da-detail">
+      <div class="da-detail-grid">
+        <div class="da-field">
+          <label>Type</label>
+          <select id="da-type">
+            <option value="beer">Beer</option>
+            <option value="wine">Wine</option>
+            <option value="spirits">Spirits</option>
+            <option value="cider">Cider</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+        <div class="da-field">
+          <label>Number of drinks</label>
+          <input type="number" id="da-count" min="1" max="20" value="1" placeholder="e.g. 2">
+        </div>
+      </div>
+      <div class="da-field" style="margin-bottom:8px;">
+        <label>Volume per drink (ml)</label>
+        <input type="number" id="da-ml" min="25" max="1000" placeholder="e.g. 340 for beer, 125 for wine">
+      </div>
+      <button class="da-save-btn" onclick="saveAlcohol()">Save alcohol log</button>
+      <div class="da-summary" id="da-summary"></div>
+    </div>
+  </div>
+
+  <!-- PRE-BED NUTRITION REMINDER -->
+  <div class="dash-prebed" id="dash-prebed">
+    <div class="db-title">🌙 Pre-bed nutrition reminder</div>
+    <div class="db-avoid"><strong style="color:var(--down);font-family:'Barlow Condensed',sans-serif;">Avoid now:</strong> Heavy carbs, maize meal, samp, Oros, sugary drinks — blood sugar spike causes night sweats</div>
+    <div class="db-suggest"><strong>Good pre-bed snack instead:</strong> A spoon of peanut butter · A boiled egg · Cottage cheese — stabilises blood sugar overnight</div>
+    <button class="db-dismiss" onclick="dismissPrebed()">Got it — dismiss for tonight</button>
+  </div>
+
   <div class="wx-comment" id="wx-comment"></div>
   <div class="dash-sleep-nudge" id="dash-sleep-nudge" onclick="go('sleep-screen')">
     <div class="dash-sleep-nudge-title">🌙 Time to wind down</div>
@@ -838,11 +935,15 @@ nav{position:sticky;top:0;z-index:100;background:rgba(10,10,10,0.96);backdrop-fi
       <label>Sleep quality</label>
       <div class="sleep-quality-row" id="sq-row"></div>
     </div>
+    <div class="form-field" style="margin-bottom:10px;">
+      <label>Night sweats</label>
+      <div class="sweat-row" id="sweat-row"></div>
+    </div>
     <button class="btn-primary" onclick="logSleep()">Log sleep</button>
   </div>
 
   <div class="sleep-corr" id="sleep-corr-block">
-    <div class="sleep-corr-title">Sleep vs effort correlation</div>
+    <div class="sleep-corr-title">Correlation tracker — last 14 days</div>
     <div id="sleep-corr-content"></div>
   </div>
 
@@ -1239,6 +1340,8 @@ function renderDashboard(){
   document.getElementById('d-upg-val').textContent=state.totalUpgrades||0;
   updateSleepNudge();
   updateKegel();
+  updateAlcoholCard();
+  updatePrebed();
   // hydro
   const hydroToday=getTodayHydro();
   const hydroTgt=getHydroTarget();
@@ -1731,33 +1834,6 @@ function renderFood(){
     </div>`).join('');
 }
 
-/* ── SLEEP ── */
-function renderSleep(){
-  renderSleepQualityBtns();
-  renderSleepRoutine();
-  const logs=state.sleepLogs||[];
-  const lastSleep=logs.length?logs[logs.length-1]:null;
-  document.getElementById('sl-last').textContent=lastSleep?lastSleep.hours:'--';
-  document.getElementById('sl-last-lbl').textContent=lastSleep?`${lastSleep.date} — quality ${lastSleep.quality}/5`:'not logged yet';
-  if(logs.length>1){
-    const recent=logs.slice(-7);
-    const avg=(recent.reduce((a,l)=>a+l.hours,0)/recent.length).toFixed(1);
-    document.getElementById('sl-avg').textContent=`Week average: ${avg} hrs`;
-  }else{document.getElementById('sl-avg').textContent='Log more nights to see your average';}
-  const corrEl=document.getElementById('sleep-corr-content');
-  const corrs=logs.filter(l=>l.effort).slice(-7);
-  if(corrs.length<2){corrEl.innerHTML='<div style="font-size:12px;color:var(--muted);">Log at least 2 nights with session effort ratings to see correlation.</div>';}
-  else{corrEl.innerHTML=corrs.reverse().map(l=>`<div class="corr-row"><span class="corr-sleep">${l.hours}h sleep</span><span>→</span><span class="corr-effort">Effort ${l.effort}/5</span><span style="font-size:11px;color:var(--muted);">${l.date}</span></div>`).join('');}
-  const logEl=document.getElementById('sleep-log');
-  if(!logs.length){logEl.innerHTML='<div style="font-size:12px;color:var(--muted);padding:6px 0;">No sleep logged yet.</div>';return;}
-  logEl.innerHTML=logs.slice(-14).reverse().map((e,i)=>`
-    <div class="sleep-log-entry">
-      <div><div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:15px;color:var(--sleep);">${e.hours} hrs${e.routineDone?' 🌙':''}</div>
-        <div class="sleep-entry-date">${e.date} · Quality ${e.quality}/5${e.routineDone?' · Routine done':''}</div></div>
-      <button class="del-sleep" onclick="delSleep(${logs.length-1-i})">×</button>
-    </div>`).join('');
-}
-
 /* ── SLEEP ROUTINE ── */
 const SLEEP_ROUTINE=[
   {name:"Child's pose",duration:'90 sec',desc:'Kneel on the floor, sit back on your heels, then stretch your arms forward on the floor and rest your forehead down. Breathe deeply and let your lower back and hips release completely.',video:'https://www.youtube.com/watch?v=2MJGg-dUKh0',search:"child's pose stretch how to"},
@@ -1844,14 +1920,6 @@ function renderSleepQualityBtns(){
   document.getElementById('sq-row').innerHTML=[1,2,3,4,5].map(n=>`<button class="sq-btn ${sleepQuality===n?'sel':''}" onclick="setSleepQ(${n})">${n}</button>`).join('');
 }
 function setSleepQ(n){sleepQuality=n;renderSleepQualityBtns();}
-function logSleep(){
-  const hours=parseFloat(document.getElementById('sl-hours').value);
-  if(!hours||hours<1)return;
-  const lastSession=Object.values(state.exerciseLogs).flat().filter(e=>e.weekNum===state.weekNum&&e.effort).sort((a,b)=>b.date>a.date?1:-1)[0];
-  state.sleepLogs=state.sleepLogs||[];
-  state.sleepLogs.push({date:TODAY(),hours,quality:sleepQuality||3,effort:lastSession?.effort||null});
-  saveState();document.getElementById('sl-hours').value='';sleepQuality=0;renderSleep();
-}
 function delSleep(i){state.sleepLogs.splice(i,1);saveState();renderSleep();}
 
 /* ── PROGRESS CHARTS ── */
@@ -2247,6 +2315,188 @@ function grRenderHistory(){
       <div class="gr-hist-body">${catHtml}${extraHtml}</div>
     </div>`;
   }).join('');
+}
+
+/* ── ALCOHOL LOG ── */
+let alcoholDrinking=null; // null=not set, true=yes, false=no
+
+function updateAlcoholCard(){
+  const todayKey=getTodayKey();
+  const log=state.alcoholLogs&&state.alcoholLogs[todayKey];
+  const card=document.getElementById('dash-alcohol');
+  const title=document.getElementById('da-title');
+  const sub=document.getElementById('da-sub');
+  const btnYes=document.getElementById('da-btn-yes');
+  const btnNo=document.getElementById('da-btn-no');
+  const detail=document.getElementById('da-detail');
+  const summary=document.getElementById('da-summary');
+  if(!card)return;
+  if(log){
+    card.className='dash-alcohol '+(log.drank?'logged-yes':'logged-no');
+    title.textContent=log.drank?'🍺 Drank today':'✓ No alcohol today';
+    if(log.drank&&log.count&&log.ml){
+      const total=log.count*log.ml;
+      sub.textContent=`${log.count} × ${log.type} (${log.ml}ml each) = ${total}ml total`;
+      summary.textContent=`${total}ml total alcohol logged`;
+    }else{
+      sub.textContent='Logged — no alcohol today';
+    }
+    btnYes.classList.toggle('active',log.drank);
+    btnNo.classList.toggle('active',!log.drank);
+    detail.classList.toggle('show',log.drank&&!log.saved);
+  }else{
+    card.className='dash-alcohol';
+    title.textContent='🍺 Alcohol today?';
+    sub.textContent='Tap to log — helps track night sweat correlation';
+    btnYes.classList.remove('active');
+    btnNo.classList.remove('active');
+    detail.classList.remove('show');
+    summary.textContent='';
+  }
+}
+
+function setAlcohol(drank){
+  if(!state.alcoholLogs)state.alcoholLogs={};
+  const todayKey=getTodayKey();
+  if(!drank){
+    state.alcoholLogs[todayKey]={drank:false,date:TODAY()};
+    saveState();updateAlcoholCard();return;
+  }
+  state.alcoholLogs[todayKey]={drank:true,date:TODAY(),saved:false};
+  saveState();
+  document.getElementById('da-detail').classList.add('show');
+  document.getElementById('da-btn-yes').classList.add('active');
+  document.getElementById('da-btn-no').classList.remove('active');
+  document.getElementById('dash-alcohol').className='dash-alcohol logged-yes';
+  document.getElementById('da-title').textContent='🍺 Drank today';
+}
+
+function saveAlcohol(){
+  const todayKey=getTodayKey();
+  const type=document.getElementById('da-type').value;
+  const count=parseInt(document.getElementById('da-count').value)||1;
+  const ml=parseInt(document.getElementById('da-ml').value)||340;
+  if(!state.alcoholLogs)state.alcoholLogs={};
+  state.alcoholLogs[todayKey]={drank:true,type,count,ml,total:count*ml,date:TODAY(),saved:true};
+  saveState();
+  document.getElementById('da-detail').classList.remove('show');
+  document.getElementById('da-sub').textContent=`${count} × ${type} (${ml}ml each) = ${count*ml}ml total`;
+  document.getElementById('da-summary').textContent=`${count*ml}ml total logged`;
+}
+
+/* ── PRE-BED REMINDER ── */
+function updatePrebed(){
+  const el=document.getElementById('dash-prebed');
+  if(!el)return;
+  const hourSAST=parseInt(new Date().toLocaleTimeString('en-ZA',{hour:'2-digit',hour12:false,...SAST}));
+  const todayKey=getTodayKey();
+  const dismissed=state.prebedDismissed===todayKey;
+  if(hourSAST>=19&&hourSAST<22&&!dismissed){
+    el.classList.add('show');
+  }else{
+    el.classList.remove('show');
+  }
+}
+
+function dismissPrebed(){
+  state.prebedDismissed=getTodayKey();
+  saveState();
+  document.getElementById('dash-prebed').classList.remove('show');
+}
+
+/* ── NIGHT SWEAT LOG ── */
+let sweatLevel='none';
+const SWEAT_LEVELS=['none','mild','moderate','drenched'];
+const SWEAT_LABELS={none:'None ✓',mild:'Mild',moderate:'Moderate',drenched:'Drenched'};
+const SWEAT_ICONS={none:'✓',mild:'💧',moderate:'💧💧',drenched:'💦'};
+
+function renderSweatBtns(){
+  const row=document.getElementById('sweat-row');
+  if(!row)return;
+  row.innerHTML=SWEAT_LEVELS.map(l=>`
+    <button class="sweat-btn ${sweatLevel===l?'sel-'+l:''}" onclick="setSweat('${l}')">${SWEAT_LABELS[l]}</button>`).join('');
+}
+function setSweat(level){sweatLevel=level;renderSweatBtns();}
+
+/* ── UPDATED logSleep TO INCLUDE SWEAT & ALCOHOL ── */
+function logSleep(){
+  const hours=parseFloat(document.getElementById('sl-hours').value);
+  if(!hours||hours<1)return;
+  const todayKey=getTodayKey();
+  const alLog=state.alcoholLogs&&state.alcoholLogs[todayKey];
+  const drankYesterday=alLog?alLog.drank:null;
+  const lastSession=Object.values(state.exerciseLogs).flat().filter(e=>e.weekNum===state.weekNum&&e.effort).sort((a,b)=>b.date>a.date?1:-1)[0];
+  state.sleepLogs=state.sleepLogs||[];
+  state.sleepLogs.push({
+    date:TODAY(),hours,
+    quality:sleepQuality||3,
+    sweat:sweatLevel,
+    alcoholPrevDay:drankYesterday,
+    alcoholMl:alLog&&alLog.total?alLog.total:null,
+    effort:lastSession?.effort||null
+  });
+  saveState();
+  document.getElementById('sl-hours').value='';
+  sleepQuality=0;sweatLevel='none';
+  renderSleep();
+}
+
+/* ── UPDATED renderSleep WITH SWEAT & CORRELATION ── */
+function renderSleep(){
+  renderSleepQualityBtns();
+  renderSweatBtns();
+  renderSleepRoutine();
+  const logs=state.sleepLogs||[];
+  const lastSleep=logs.length?logs[logs.length-1]:null;
+  document.getElementById('sl-last').textContent=lastSleep?lastSleep.hours:'--';
+  const sweatIcon=lastSleep&&lastSleep.sweat?SWEAT_ICONS[lastSleep.sweat]||'':'' ;
+  document.getElementById('sl-last-lbl').textContent=lastSleep
+    ?`${lastSleep.date} — quality ${lastSleep.quality}/5 ${sweatIcon}`
+    :'not logged yet';
+  if(logs.length>1){
+    const recent=logs.slice(-7);
+    const avg=(recent.reduce((a,l)=>a+l.hours,0)/recent.length).toFixed(1);
+    document.getElementById('sl-avg').textContent=`Week average: ${avg} hrs`;
+  }else{document.getElementById('sl-avg').textContent='Log more nights to see your average';}
+
+  // CORRELATION VIEW
+  const corrEl=document.getElementById('sleep-corr-content');
+  if(logs.length<2){
+    corrEl.innerHTML='<div style="font-size:12px;color:var(--muted);padding:6px 0;">Log at least 2 nights to see correlations between sleep, sweating, alcohol and effort.</div>';
+  }else{
+    const recent14=logs.slice(-14).reverse();
+    const sweatColour={none:'var(--full)',mild:'var(--hold)',moderate:'var(--cardio)',drenched:'var(--down)'};
+    const sweatBg={none:'#052214',mild:'#2a1e00',moderate:'#2a1200',drenched:'var(--down-bg)'};
+    const qualColour=(q)=>q>=4?'var(--full)':q>=3?'var(--hold)':'var(--down)';
+    const qualBg=(q)=>q>=4?'#052214':q>=3?'#2a1e00':'var(--down-bg)';
+    corrEl.innerHTML=`
+      <div class="corr-header">
+        <span>Date</span><span>Sleep</span><span>Sweat</span><span>Alcohol prev</span><span>Effort</span>
+      </div>
+      <div class="corr-grid">
+        ${recent14.map(e=>`<div class="corr-day-row">
+          <span class="corr-day-label">${e.date}</span>
+          <span class="corr-cell" style="background:${qualBg(e.quality)};color:${qualColour(e.quality)};">${e.hours}h Q${e.quality}</span>
+          <span class="corr-cell" style="background:${sweatBg[e.sweat]||'var(--surface2)'};color:${sweatColour[e.sweat]||'var(--muted)'};">${SWEAT_ICONS[e.sweat]||'--'} ${e.sweat||'--'}</span>
+          <span class="corr-cell" style="background:${e.alcoholPrevDay?'var(--down-bg)':'#052214'};color:${e.alcoholPrevDay?'var(--down)':'var(--full)'};">${e.alcoholPrevDay===null?'--':e.alcoholPrevDay?'Yes '+(e.alcoholMl?e.alcoholMl+'ml':''):'No'}</span>
+          <span class="corr-cell" style="background:${e.effort?qualBg(e.effort):'var(--surface2)'};color:${e.effort?qualColour(e.effort):'var(--muted)'};">${e.effort?e.effort+'/5':'--'}</span>
+        </div>`).join('')}
+      </div>`;
+  }
+
+  // HISTORY
+  const logEl=document.getElementById('sleep-log');
+  if(!logs.length){logEl.innerHTML='<div style="font-size:12px;color:var(--muted);padding:6px 0;">No sleep logged yet.</div>';return;}
+  logEl.innerHTML=logs.slice(-14).reverse().map((e,i)=>`
+    <div class="sleep-log-entry">
+      <div>
+        <div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:15px;color:var(--sleep);">
+          ${e.hours} hrs ${e.sweat&&e.sweat!=='none'?SWEAT_ICONS[e.sweat]:''}${e.routineDone?' 🌙':''}
+        </div>
+        <div class="sleep-entry-date">${e.date} · Quality ${e.quality}/5${e.sweat?' · Sweat: '+e.sweat:''}${e.alcoholPrevDay?' · Alcohol prev day':''}</div>
+      </div>
+      <button class="del-sleep" onclick="delSleep(${logs.length-1-i})">×</button>
+    </div>`).join('');
 }
 
 /* ── INIT ── */
