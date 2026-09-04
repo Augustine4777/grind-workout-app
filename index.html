@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-<title>GRIND v4</title>
+<title>GRIND v6</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@300;400;500;600;700;800;900&family=Barlow:wght@300;400;500&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
@@ -554,7 +554,7 @@ nav{position:sticky;top:0;z-index:100;background:rgba(10,10,10,0.96);backdrop-fi
 </head>
 <body>
 <nav>
-  <div class="logo">GRIND<sup>v4</sup></div>
+  <div class="logo">GRIND<sup>v6</sup></div>
   <div class="nav-tabs">
     <button class="nav-tab active" onclick="go('dashboard')">Home</button>
     <button class="nav-tab" onclick="go('session-screen')" id="nav-session" style="display:none;">Session</button>
@@ -1999,7 +1999,7 @@ function analyseExercise(){
   let cls,body,rec,canAdd=true;
   if(!equipOk){cls='no';body='This exercise needs equipment you don\'t have. Your kit: 2×5kg dumbbells and a skipping rope.';rec='Find a bodyweight or dumbbell alternative targeting the same muscle.';canAdd=false;}
   else if(['chest','shoulders','triceps','back','biceps'].includes(muscle)){cls='great';body=`Directly targets your upper body goal. ${muscle==='chest'?'Great for push days.':muscle==='shoulders'?'Pairs with push days — go easy if shoulder is sore.':muscle==='back'?'Supports pull days and posture.':'Pairs with the relevant push or pull day.'}`;rec=`Best day: ${['chest','shoulders','triceps'].includes(muscle)?'Monday or Thursday (push)':'Tuesday or Friday (pull)'}.`;}
-  else if(muscle==='core'){cls='great';body='Core exercises are part of your v4 goal. This is a great addition.';rec='Best day: Wednesday (core/mobility) or as a finisher on any session.';}
+  else if(muscle==='core'){cls='great';body='Core exercises are part of your v6 goal. This is a great addition.';rec='Best day: Wednesday (core/mobility) or as a finisher on any session.';}
   else if(muscle==='cardio'){cls='great';body='Cardio supports the lean goal by burning fat. Good complement to your skipping rope work.';rec='Best day: Wednesday cardio day or as a warm-up.';}
   else if(muscle==='full'){cls='okay';body='Full body compounds are effective but cause systemic fatigue that may affect upper body recovery.';rec='Best day: Saturday circuit day only.';}
   else{cls='okay';body='Lower body exercises don\'t directly contribute to your lean upper body goal and can cause leg fatigue that affects your training sessions.';rec='Consider Pike push-up (shoulders), Renegade row (back/core), or a Plank variation (core) instead.';}
